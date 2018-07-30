@@ -6,9 +6,9 @@ $script = "$here\$sut"
 . "$script"
 
 Describe "LoadFile" {
-    It "loads the file" {
-		$fileContent = LoadARM -file '.\tests\Merge.ARM.Tests\sampleTemplate\Template.json'
+	$fileContent = LoadARM -file '.\tests\Merge.ARM.Tests\sampleTemplate\Template.json'
 
-		$fileContent.resources[0].apiVersion | Should BeExactly '2017-05-10'
+    It "has a content" {
+		$fileContent | Should -Not -Be $null
     }
 }

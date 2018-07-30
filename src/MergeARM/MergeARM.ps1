@@ -19,5 +19,3 @@ function LoadARM($file){
 function ExpandFile($fileContent){
 	return $fileContent
 }
-
-Main
