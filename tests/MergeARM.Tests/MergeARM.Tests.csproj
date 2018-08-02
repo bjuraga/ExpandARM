@@ -76,7 +76,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\ARMIO\ARMIO_Tests.cs" />
+    <Compile Include="Core\ARMIO\ArmIO_ExpandArmTemplate.cs" />
+    <Compile Include="Core\ARMIO\ArmIO_LoadArmTemplate.cs" />
     <Compile Include="Core\MockFileSystemImpl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

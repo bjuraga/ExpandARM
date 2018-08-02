@@ -9,10 +9,13 @@ namespace MergeARM
         {
             var fileName = args[0];
 
+            var armio = ArmIO.Create(new FileSystem());
+
             // Load file
-            var armTemplate = new ArmIO(new FileSystem()).LoadArmTemplate(fileName);
+            var armTemplate = armio.LoadArmTemplate(fileName);
 
             // Expand file
+            armio.ExpandArmTemplate(armTemplate);
 
             // Save a copy of the file
         }

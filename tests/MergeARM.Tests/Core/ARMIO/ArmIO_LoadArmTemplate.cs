@@ -7,7 +7,7 @@ using System;
 namespace MergeARM.Tests.Core.ARMIO
 {
     [TestClass]
-    public class ARMIO_Tests
+    public class ArmIO_LoadArmTemplate
     {
         [TestMethod]
         public void LoadArmTemplate_MinimalFile_Returns_ArmTemplate()
@@ -15,7 +15,7 @@ namespace MergeARM.Tests.Core.ARMIO
             // Arrange
             var fileSystem = MockFileSystemImpl.FileSystem;
             var filePath = @"c:\minimal.arm.template.json";
-            var sut = new ArmIO(fileSystem);
+            var sut = ArmIO.Create(fileSystem);
             var expectedArmTemplate = new ArmTemplate(filePath, fileSystem.File.ReadAllText(filePath));
 
             var arm = sut.LoadArmTemplate(filePath);
@@ -29,12 +29,10 @@ namespace MergeARM.Tests.Core.ARMIO
             // Arrange
             var fileSystem = MockFileSystemImpl.FileSystem;
             var filePath = @"c:\minimal.arm.template.json";
-            var sut = new ArmIO(fileSystem);
-            var expectedArmTemplate = new ArmTemplate(filePath, fileSystem.File.ReadAllText(filePath));
-
+            var sut = ArmIO.Create(fileSystem);
             var arm = sut.LoadArmTemplate(filePath);
 
-            var resourcesType = (Type)arm.OriginalContent.resources.GetType();
+            var resourcesType = (Type)((dynamic)arm.OriginalContent).resources.GetType();
             resourcesType.Should().Be(typeof(JArray));
         }
 
@@ -44,7 +42,7 @@ namespace MergeARM.Tests.Core.ARMIO
             // Arrange
             var fileSystem = MockFileSystemImpl.FileSystem;
             var filePath = @"c:\minimal.arm.template.json";
-            var sut = new ArmIO(fileSystem);
+            var sut = ArmIO.Create(fileSystem);
 
             var arm = sut.LoadArmTemplate(filePath);
 
@@ -57,7 +55,7 @@ namespace MergeARM.Tests.Core.ARMIO
             // Arrange
             var fileSystem = MockFileSystemImpl.FileSystem;
             var filePath = @"c:\arm.template.with.templateLink.json";
-            var sut = new ArmIO(fileSystem);
+            var sut = ArmIO.Create(fileSystem);
 
             var arm = sut.LoadArmTemplate(filePath);
 

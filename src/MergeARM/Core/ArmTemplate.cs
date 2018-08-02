@@ -9,23 +9,23 @@ namespace MergeARM.Core
 
         public string FileText { get; }
 
-        public bool NeedsExpansion { get; }
+        public bool NeedsExpansion => OriginalContent.SelectTokens("$..templateLink").Any();
 
-        public bool IsExpanded { get; }
+        public bool IsExpanded => !ExpandedContent.SelectTokens("$..templateLink").Any();
 
-        public dynamic OriginalContent { get; }
+        //public dynamic OriginalContent { get; }
 
-        private JObject originalContent;
+        public JObject OriginalContent { get; }
+
+        public JObject ExpandedContent { get; set; }
 
         public ArmTemplate(string fileName, string fileText)
         {
             FileName = fileName;
             FileText = fileText;
 
-            originalContent = JObject.Parse(FileText);
-            OriginalContent = originalContent;
-
-            NeedsExpansion = originalContent.SelectTokens("$..templateLink").Any();
+            OriginalContent = JObject.Parse(FileText);
+            ExpandedContent = OriginalContent;
         }
     }
 }
