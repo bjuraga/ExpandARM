@@ -25,7 +25,10 @@ namespace MergeARM.Core
                 .ToList()
                 .ForEach(t =>
                 {
-                    t.Parent.Parent["template"] = JObject.FromObject(new { templateContent = "b" });
+                    var templateFilePath = ((string)((dynamic)t).uri).Replace("file://", "");
+                    var templateFileContents = fileSystem.File.ReadAllText(templateFilePath);
+                    var templateJson = JObject.Parse(templateFileContents);
+                    t.Parent.Parent["template"] = templateJson;
                     ((JObject)t.Parent.Parent).Property("templateLink").Remove();
                 });
         }

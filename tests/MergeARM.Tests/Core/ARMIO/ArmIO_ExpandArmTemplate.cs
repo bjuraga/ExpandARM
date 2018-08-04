@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using MergeARM.Core;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json.Linq;
 using System.Linq;
 
 namespace MergeARM.Tests.Core.ARMIO
@@ -34,6 +35,21 @@ namespace MergeARM.Tests.Core.ARMIO
             sut.ExpandArmTemplate(arm);
 
             arm.ExpandedContent.SelectTokens("$..template").Any().Should().Be(true);
+        }
+
+        [TestMethod]
+        public void ExpandArmTemplate_Template_Contains_FileContents_Of_Template()
+        {
+            // Arrange
+            var fileSystem = MockFileSystemImpl.FileSystem;
+            var filePath = @"c:\arm.template.with.templateLink.json";
+            var expectedTemplateContent = JObject.Parse(fileSystem.File.ReadAllText(@"c:\reusable.templates\arm.linked.minimal.template.json"));
+            var sut = ArmIO.Create(fileSystem);
+            var arm = sut.LoadArmTemplate(filePath);
+
+            sut.ExpandArmTemplate(arm);
+
+            arm.ExpandedContent.SelectToken("$..template").ToString().Should().BeEquivalentTo(expectedTemplateContent.ToString());
         }
     }
 }
