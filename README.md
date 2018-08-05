@@ -8,7 +8,7 @@ Tool that enables you to use local file system template links
 	Example: C:\template.expanded.json
 	If the file already exists, it will be owerriden. 
 
-# Planned future features (roadmap):
+# Planned features (roadmap):
 - Expand nested templates
 - Option to save nested templates to filesystem also
 - Use relative paths in the file:// links
