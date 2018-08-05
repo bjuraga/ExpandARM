@@ -18,6 +18,7 @@ namespace MergeARM
             armio.ExpandArmTemplate(armTemplate);
 
             // Save a copy of the file
+            armio.SaveExpandedTemplate(armTemplate);
         }
     }
 }

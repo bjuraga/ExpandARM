@@ -18,6 +18,7 @@ namespace MergeARM.Core
         public JObject OriginalContent { get; }
 
         public JObject ExpandedContent { get; set; }
+        public string ExpandedFileName { get; internal set; }
 
         public ArmTemplate(string fileName, string fileText)
         {

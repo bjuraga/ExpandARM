@@ -36,6 +36,28 @@ namespace MergeARM.Tests.Core
                             ]
                          }") },
 
+                    { @"c:\arm.template.with.forward.slash.templateLink.json", new MockFileData(
+                        @"{
+                            ""$schema"": ""https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#"",
+                            ""contentVersion"": ""1.0.0.0"",
+                            ""parameters"": {},
+                            ""variables"": {},
+                            ""resources"": [
+                                {
+                                    ""apiVersion"": ""2017-05-10"",
+                                    ""name"": ""linkedTemplate"",
+                                    ""type"": ""Microsoft.Resources/deployments"",
+                                    ""properties"": {
+                                            ""mode"": ""incremental"",
+                                        ""templateLink"": {
+                                                ""uri"": ""file://C:/reusable.templates/arm.linked.minimal.template.json"",
+                                            ""contentVersion"": ""1.0.0.0""
+                                        }
+                                    }
+                                }
+                            ]
+                         }") },
+
                     { @"c:\reusable.templates\arm.linked.minimal.template.json", new MockFileData(
                         @"
                          {
@@ -52,7 +74,40 @@ namespace MergeARM.Tests.Core
                                 }
                               }
                             ]
-                          }") }
+                          }")
+                    },
+                    { @"c:\arm.expected.extended.template.json", new MockFileData(
+                         @"{
+                            ""$schema"": ""https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#"",
+                            ""contentVersion"": ""1.0.0.0"",
+                            ""parameters"": {},
+                            ""variables"": {},
+                            ""resources"": [
+                                {
+                                    ""apiVersion"": ""2017-05-10"",
+                                    ""name"": ""linkedTemplate"",
+                                    ""type"": ""Microsoft.Resources/deployments"",
+                                    ""properties"": {
+                                            ""mode"": ""incremental"",
+                                        ""template"": {
+                                            ""$schema"": ""https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#"",
+                                            ""contentVersion"": ""1.0.0.0"",
+                                            ""resources"": [
+                                              {
+                                                ""type"": ""Microsoft.Storage/storageAccounts"",
+                                                ""name"": ""[variables('storageName')]"",
+                                                ""apiVersion"": ""2015-06-15"",
+                                                ""location"": ""West US"",
+                                                ""properties"": {
+                                                  ""accountType"": ""Standard_LRS""
+                                                }
+                                              }
+                                            ]
+                                          }
+                                    }
+                                }
+                            ]
+                         }") }
                 });
             }
         }

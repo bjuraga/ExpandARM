@@ -38,11 +38,26 @@ namespace MergeARM.Tests.Core.ARMIO
         }
 
         [TestMethod]
-        public void ExpandArmTemplate_Template_Contains_FileContents_Of_Template()
+        public void ExpandArmTemplate_Template_Contains_FileContents_Of_LinkedTemplate()
         {
             // Arrange
             var fileSystem = MockFileSystemImpl.FileSystem;
             var filePath = @"c:\arm.template.with.templateLink.json";
+            var expectedTemplateContent = JObject.Parse(fileSystem.File.ReadAllText(@"c:\reusable.templates\arm.linked.minimal.template.json"));
+            var sut = ArmIO.Create(fileSystem);
+            var arm = sut.LoadArmTemplate(filePath);
+
+            sut.ExpandArmTemplate(arm);
+
+            arm.ExpandedContent.SelectToken("$..template").ToString().Should().BeEquivalentTo(expectedTemplateContent.ToString());
+        }
+
+        [TestMethod]
+        public void ExpandArmTemplate_Supports_FilePaths_With_Forward_Slash()
+        {
+            // Arrange
+            var fileSystem = MockFileSystemImpl.FileSystem;
+            var filePath = @"c:\arm.template.with.forward.slash.templateLink.json";
             var expectedTemplateContent = JObject.Parse(fileSystem.File.ReadAllText(@"c:\reusable.templates\arm.linked.minimal.template.json"));
             var sut = ArmIO.Create(fileSystem);
             var arm = sut.LoadArmTemplate(filePath);
