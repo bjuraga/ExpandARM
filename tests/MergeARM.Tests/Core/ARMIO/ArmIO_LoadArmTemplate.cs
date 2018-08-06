@@ -18,8 +18,10 @@ namespace MergeARM.Tests.Core.ARMIO
             var sut = ArmIO.Create(fileSystem);
             var expectedArmTemplate = new ArmTemplate(filePath, fileSystem.File.ReadAllText(filePath));
 
+            // Act
             var arm = sut.LoadArmTemplate(filePath);
 
+            // Assert
             arm.Should().BeEquivalentTo(expectedArmTemplate);
         }
 
@@ -32,7 +34,10 @@ namespace MergeARM.Tests.Core.ARMIO
             var sut = ArmIO.Create(fileSystem);
             var arm = sut.LoadArmTemplate(filePath);
 
+            // Act
             var resourcesType = (Type)((dynamic)arm.OriginalContent).resources.GetType();
+
+            // Assert
             resourcesType.Should().Be(typeof(JArray));
         }
 
@@ -44,8 +49,10 @@ namespace MergeARM.Tests.Core.ARMIO
             var filePath = @"c:\minimal.arm.template.json";
             var sut = ArmIO.Create(fileSystem);
 
+            // Act
             var arm = sut.LoadArmTemplate(filePath);
 
+            // Assert
             arm.NeedsExpansion.Should().Be(false);
         }
 
@@ -57,8 +64,10 @@ namespace MergeARM.Tests.Core.ARMIO
             var filePath = @"c:\arm.template.with.templateLink.json";
             var sut = ArmIO.Create(fileSystem);
 
+            // Act
             var arm = sut.LoadArmTemplate(filePath);
 
+            // Assert
             arm.NeedsExpansion.Should().Be(true);
         }
     }

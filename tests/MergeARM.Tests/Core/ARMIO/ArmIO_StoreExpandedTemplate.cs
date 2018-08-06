@@ -18,8 +18,10 @@ namespace MergeARM.Tests.Core.ARMIO
             var arm = sut.LoadArmTemplate(filePath);
             sut.ExpandArmTemplate(arm);
 
+            // Act
             sut.SaveExpandedTemplate(arm);
 
+            // Assert
             JObject contentInExpandedFile = JObject.Parse(fileSystem.File.ReadAllText(arm.ExpandedFileName));
             JObject expectedContent = JObject.Parse(fileSystem.File.ReadAllText(@"c:\arm.expected.extended.template.json"));
             contentInExpandedFile.Should().BeEquivalentTo(expectedContent);

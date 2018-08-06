@@ -18,8 +18,10 @@ namespace MergeARM.Tests.Core.ARMIO
             var sut = ArmIO.Create(fileSystem);
             var arm = sut.LoadArmTemplate(filePath);
 
+            // Act
             sut.ExpandArmTemplate(arm);
 
+            // Assert
             arm.IsExpanded.Should().Be(true);
         }
 
@@ -32,8 +34,10 @@ namespace MergeARM.Tests.Core.ARMIO
             var sut = ArmIO.Create(fileSystem);
             var arm = sut.LoadArmTemplate(filePath);
 
+            // Act
             sut.ExpandArmTemplate(arm);
 
+            // Assert
             arm.ExpandedContent.SelectTokens("$..template").Any().Should().Be(true);
         }
 
@@ -47,8 +51,10 @@ namespace MergeARM.Tests.Core.ARMIO
             var sut = ArmIO.Create(fileSystem);
             var arm = sut.LoadArmTemplate(filePath);
 
+            // Act
             sut.ExpandArmTemplate(arm);
 
+            // Assert
             arm.ExpandedContent.SelectToken("$..template").ToString().Should().BeEquivalentTo(expectedTemplateContent.ToString());
         }
 
@@ -62,8 +68,10 @@ namespace MergeARM.Tests.Core.ARMIO
             var sut = ArmIO.Create(fileSystem);
             var arm = sut.LoadArmTemplate(filePath);
 
+            // Act
             sut.ExpandArmTemplate(arm);
 
+            // Assert
             arm.ExpandedContent.SelectToken("$..template").ToString().Should().BeEquivalentTo(expectedTemplateContent.ToString());
         }
     }
