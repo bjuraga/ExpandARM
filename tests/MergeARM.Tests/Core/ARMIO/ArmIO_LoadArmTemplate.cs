@@ -10,13 +10,13 @@ namespace MergeARM.Tests.Core.ARMIO
     public class ArmIO_LoadArmTemplate
     {
         [TestMethod]
-        public void LoadArmTemplate_MinimalFile_Returns_ArmTemplate()
+        public void LoadArmTemplate_MinimalFile_Returns_ExpectedArmTemplate()
         {
             // Arrange
             var fileSystem = MockFileSystemImpl.FileSystem;
             var filePath = @"c:\minimal.arm.template.json";
             var sut = ArmIO.Create(fileSystem);
-            var expectedArmTemplate = new ArmTemplate(filePath, fileSystem.File.ReadAllText(filePath));
+            var expectedArmTemplate = new ArmTemplate(filePath, JObject.Parse(fileSystem.File.ReadAllText(filePath)));
 
             // Act
             var arm = sut.LoadArmTemplate(filePath);

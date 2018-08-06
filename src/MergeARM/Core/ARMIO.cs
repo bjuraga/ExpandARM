@@ -15,7 +15,9 @@ namespace MergeARM.Core
 
         public ArmTemplate LoadArmTemplate(string filePath)
         {
-            return new ArmTemplate(filePath, fileSystem.File.ReadAllText(filePath));
+            var fileText = fileSystem.File.ReadAllText(filePath);
+            var jObject = JObject.Parse(fileText);
+            return new ArmTemplate(filePath, jObject);
         }
 
         public void ExpandArmTemplate(ArmTemplate armTemplate)
@@ -35,7 +37,7 @@ namespace MergeARM.Core
 
         public void SaveExpandedTemplate(ArmTemplate armTemplate)
         {
-            var storeFileName = fileSystem.Path.ChangeExtension(armTemplate.FileName, "expanded.josn");
+            var storeFileName = fileSystem.Path.ChangeExtension(armTemplate.FilePath, "expanded.josn");
 
             armTemplate.ExpandedFileName = storeFileName;
 
