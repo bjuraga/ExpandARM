@@ -2,6 +2,7 @@
 using MergeARM.Core;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json.Linq;
+using System.IO.Abstractions;
 using System.Linq;
 
 namespace MergeARM.Tests.Core.ARMIO
@@ -9,13 +10,21 @@ namespace MergeARM.Tests.Core.ARMIO
     [TestClass]
     public class ArmIO_ExpandArmTemplate
     {
+        private IFileSystem fileSystem;
+        private IArmIO sut;
+
+        [TestInitialize]
+        public void Initialize()
+        {
+            fileSystem = MockFileSystemImpl.FileSystem;
+            sut = ArmIO.Create(fileSystem);
+        }
+
         [TestMethod]
         public void ExpandArmTemplate_Sets_IsExpanded_To_True()
         {
             // Arrange
-            var fileSystem = MockFileSystemImpl.FileSystem;
             var filePath = @"c:\arm.template.with.templateLink.json";
-            var sut = ArmIO.Create(fileSystem);
             var arm = sut.LoadArmTemplate(filePath);
 
             // Act
@@ -29,9 +38,7 @@ namespace MergeARM.Tests.Core.ARMIO
         public void ExpandArmTemplate_Produces_Template_Objects()
         {
             // Arrange
-            var fileSystem = MockFileSystemImpl.FileSystem;
             var filePath = @"c:\arm.template.with.templateLink.json";
-            var sut = ArmIO.Create(fileSystem);
             var arm = sut.LoadArmTemplate(filePath);
 
             // Act
@@ -45,10 +52,8 @@ namespace MergeARM.Tests.Core.ARMIO
         public void ExpandArmTemplate_Template_Contains_FileContents_Of_LinkedTemplate()
         {
             // Arrange
-            var fileSystem = MockFileSystemImpl.FileSystem;
             var filePath = @"c:\arm.template.with.templateLink.json";
             var expectedTemplateContent = JObject.Parse(fileSystem.File.ReadAllText(@"c:\reusable.templates\arm.linked.minimal.template.json"));
-            var sut = ArmIO.Create(fileSystem);
             var arm = sut.LoadArmTemplate(filePath);
 
             // Act
@@ -62,10 +67,23 @@ namespace MergeARM.Tests.Core.ARMIO
         public void ExpandArmTemplate_Supports_FilePaths_With_Forward_Slash()
         {
             // Arrange
-            var fileSystem = MockFileSystemImpl.FileSystem;
             var filePath = @"c:\arm.template.with.forward.slash.templateLink.json";
             var expectedTemplateContent = JObject.Parse(fileSystem.File.ReadAllText(@"c:\reusable.templates\arm.linked.minimal.template.json"));
-            var sut = ArmIO.Create(fileSystem);
+            var arm = sut.LoadArmTemplate(filePath);
+
+            // Act
+            sut.ExpandArmTemplate(arm);
+
+            // Assert
+            arm.ExpandedContent.SelectToken("$..template").ToString().Should().BeEquivalentTo(expectedTemplateContent.ToString());
+        }
+
+        [TestMethod]
+        public void ExpandArmTemplate_Template_Contains_FileContents_Of_LinkedTemplateWithRelativePath()
+        {
+            // Arrange
+            var filePath = @"c:\arm.template.with.templateLink.relative.json";
+            var expectedTemplateContent = JObject.Parse(fileSystem.File.ReadAllText(@"c:\reusable.templates\arm.linked.minimal.template.json"));
             var arm = sut.LoadArmTemplate(filePath);
 
             // Act
