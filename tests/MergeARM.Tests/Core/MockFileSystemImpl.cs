@@ -36,6 +36,28 @@ namespace MergeARM.Tests.Core
                             ]
                          }") },
 
+                    { @"c:\arm.template.with.templateLink.relative.json", new MockFileData(
+                        @"{
+                            ""$schema"": ""https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#"",
+                            ""contentVersion"": ""1.0.0.0"",
+                            ""parameters"": {},
+                            ""variables"": {},
+                            ""resources"": [
+                                {
+                                    ""apiVersion"": ""2017-05-10"",
+                                    ""name"": ""linkedTemplate"",
+                                    ""type"": ""Microsoft.Resources/deployments"",
+                                    ""properties"": {
+                                            ""mode"": ""incremental"",
+                                        ""templateLink"": {
+                                                ""uri"": ""file://.\\reusable.templates\\arm.linked.minimal.template.json"",
+                                            ""contentVersion"": ""1.0.0.0""
+                                        }
+                                    }
+                                }
+                            ]
+                         }") },
+
                     { @"c:\arm.template.with.forward.slash.templateLink.json", new MockFileData(
                         @"{
                             ""$schema"": ""https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#"",
@@ -108,7 +130,7 @@ namespace MergeARM.Tests.Core
                                 }
                             ]
                          }") }
-                });
+                }, currentDirectory: @"C:");
             }
         }
     }
