@@ -12,6 +12,7 @@ Tool that enables you to use local file system template links
 - Expand nested templates
 - Option to save nested templates to filesystem also
 - Use relative paths in the file:// links
+- Use http:// links
 - Support for parameterLink expansion
 - Detect endless loops
 - Provide an option to not owerride a file on save, but generate a new one?
