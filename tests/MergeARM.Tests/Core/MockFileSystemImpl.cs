@@ -6,7 +6,10 @@ namespace MergeARM.Tests.Core
 {
     public class MockFileSystemImpl
     {
+        public static string CurrentDir = @"C:\some\unrelated\dir";
+
         public static IFileSystem FileSystem
+
         {
             get
             {
@@ -130,7 +133,7 @@ namespace MergeARM.Tests.Core
                                 }
                             ]
                          }") }
-                }, currentDirectory: @"C:");
+                }, currentDirectory: CurrentDir);
             }
         }
     }
