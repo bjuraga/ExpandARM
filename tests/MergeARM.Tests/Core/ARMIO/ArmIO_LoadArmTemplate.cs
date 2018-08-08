@@ -24,7 +24,7 @@ namespace MergeARM.Tests.Core.ARMIO
         public void LoadArmTemplate_MinimalFile_Returns_ExpectedArmTemplate()
         {
             // Arrange
-            var filePath = @"c:\minimal.arm.template.json";
+            var filePath = @"c:\templates\main\minimal.arm.template.json";
             var expectedArmTemplate = new ArmTemplate(filePath, JObject.Parse(fileSystem.File.ReadAllText(filePath)));
 
             // Act
@@ -38,7 +38,7 @@ namespace MergeARM.Tests.Core.ARMIO
         public void LoadArmTemplate_MinimalFile_Contains_resources_array()
         {
             // Arrange
-            var filePath = @"c:\minimal.arm.template.json";
+            var filePath = @"c:\templates\main\minimal.arm.template.json";
             var arm = sut.LoadArmTemplate(filePath);
 
             // Act
@@ -52,7 +52,7 @@ namespace MergeARM.Tests.Core.ARMIO
         public void LoadArmTemplate_MinimalFileWithoutTemplateLink_Returns_ArmTemplate_With_NeedsExpansion_False()
         {
             // Arrange
-            var filePath = @"c:\minimal.arm.template.json";
+            var filePath = @"c:\templates\main\minimal.arm.template.json";
 
             // Act
             var arm = sut.LoadArmTemplate(filePath);
@@ -65,7 +65,7 @@ namespace MergeARM.Tests.Core.ARMIO
         public void LoadArmTemplate_WithTemplateLink_Returns_ArmTemplate_With_NeedsExpansion_True()
         {
             // Arrange
-            var filePath = @"c:\arm.template.with.templateLink.json";
+            var filePath = @"c:\templates\main\arm.template.with.templateLink.json";
 
             // Act
             var arm = sut.LoadArmTemplate(filePath);

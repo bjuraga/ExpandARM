@@ -23,7 +23,7 @@ namespace MergeARM.Tests.Core.ARMIO
         public void SaveExpandedTemplate_Should_Be_As_Expected_Template()
         {
             // Arrange
-            var filePath = @"c:\arm.template.with.templateLink.json";
+            var filePath = @"c:\templates\main\arm.template.with.templateLink.json";
             var arm = sut.LoadArmTemplate(filePath);
             sut.ExpandArmTemplate(arm);
 
@@ -32,7 +32,7 @@ namespace MergeARM.Tests.Core.ARMIO
 
             // Assert
             JObject contentInExpandedFile = JObject.Parse(fileSystem.File.ReadAllText(arm.ExpandedFileName));
-            JObject expectedContent = JObject.Parse(fileSystem.File.ReadAllText(@"c:\arm.expected.extended.template.json"));
+            JObject expectedContent = JObject.Parse(fileSystem.File.ReadAllText(@"c:\templates\main\arm.expected.extended.template.json"));
             contentInExpandedFile.Should().BeEquivalentTo(expectedContent);
         }
     }
