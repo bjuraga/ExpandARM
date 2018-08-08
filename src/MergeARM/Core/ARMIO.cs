@@ -8,8 +8,6 @@ namespace MergeARM.Core
     {
         private readonly IFileSystem fileSystem;
 
-        public string WorkingDirectory => fileSystem.Directory.GetCurrentDirectory();
-
         private ArmIO(IFileSystem fileSystem)
         {
             this.fileSystem = fileSystem;
@@ -30,7 +28,10 @@ namespace MergeARM.Core
                 .ForEach(t =>
                 {
                     var templateFilePath = ((string)((dynamic)t).uri).Replace("file://", "").Replace("/", "\\");
-                    var templateFullPath = fileSystem.Path.GetFullPath(templateFilePath);
+                    var templateFullPath = fileSystem.Path.IsPathRooted(templateFilePath) ?
+                        templateFilePath
+                        :
+                        fileSystem.Path.Combine(fileSystem.Path.GetDirectoryName(armTemplate.FilePath), templateFilePath);
 
                     var templateFileContents = fileSystem.File.ReadAllText(templateFullPath);
                     var templateJson = JObject.Parse(templateFileContents);

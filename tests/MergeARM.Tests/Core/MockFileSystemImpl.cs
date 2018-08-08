@@ -6,15 +6,18 @@ namespace MergeARM.Tests.Core
 {
     public class MockFileSystemImpl
     {
+        public static string CurrentDir = @"C:\some\unrelated\dir";
+
         public static IFileSystem FileSystem
+
         {
             get
             {
                 return new MockFileSystem(new Dictionary<string, MockFileData>
                 {
-                    { @"c:\minimal.arm.template.json",  new MockFileData("{ \"resources\": []}") },
+                    { @"c:\templates\main\minimal.arm.template.json",  new MockFileData("{ \"resources\": []}") },
 
-                    { @"c:\arm.template.with.templateLink.json", new MockFileData(
+                    { @"c:\templates\main\arm.template.with.templateLink.json", new MockFileData(
                         @"{
                             ""$schema"": ""https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#"",
                             ""contentVersion"": ""1.0.0.0"",
@@ -28,7 +31,7 @@ namespace MergeARM.Tests.Core
                                     ""properties"": {
                                             ""mode"": ""incremental"",
                                         ""templateLink"": {
-                                                ""uri"": ""file://C:\\reusable.templates\\arm.linked.minimal.template.json"",
+                                                ""uri"": ""file://C:\\templates\\reusable\\arm.linked.minimal.template.json"",
                                             ""contentVersion"": ""1.0.0.0""
                                         }
                                     }
@@ -36,7 +39,7 @@ namespace MergeARM.Tests.Core
                             ]
                          }") },
 
-                    { @"c:\arm.template.with.templateLink.relative.json", new MockFileData(
+                    { @"c:\templates\main\arm.template.with.templateLink.relative.json", new MockFileData(
                         @"{
                             ""$schema"": ""https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#"",
                             ""contentVersion"": ""1.0.0.0"",
@@ -50,7 +53,7 @@ namespace MergeARM.Tests.Core
                                     ""properties"": {
                                             ""mode"": ""incremental"",
                                         ""templateLink"": {
-                                                ""uri"": ""file://.\\reusable.templates\\arm.linked.minimal.template.json"",
+                                                ""uri"": ""file://..\\reusable\\arm.linked.minimal.template.json"",
                                             ""contentVersion"": ""1.0.0.0""
                                         }
                                     }
@@ -58,7 +61,7 @@ namespace MergeARM.Tests.Core
                             ]
                          }") },
 
-                    { @"c:\arm.template.with.forward.slash.templateLink.json", new MockFileData(
+                    { @"c:\templates\main\arm.template.with.forward.slash.templateLink.json", new MockFileData(
                         @"{
                             ""$schema"": ""https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#"",
                             ""contentVersion"": ""1.0.0.0"",
@@ -72,7 +75,7 @@ namespace MergeARM.Tests.Core
                                     ""properties"": {
                                             ""mode"": ""incremental"",
                                         ""templateLink"": {
-                                                ""uri"": ""file://C:/reusable.templates/arm.linked.minimal.template.json"",
+                                                ""uri"": ""file://C:/templates/reusable/arm.linked.minimal.template.json"",
                                             ""contentVersion"": ""1.0.0.0""
                                         }
                                     }
@@ -80,7 +83,7 @@ namespace MergeARM.Tests.Core
                             ]
                          }") },
 
-                    { @"c:\reusable.templates\arm.linked.minimal.template.json", new MockFileData(
+                    { @"c:\templates\reusable\arm.linked.minimal.template.json", new MockFileData(
                         @"
                          {
                             ""$schema"": ""https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#"",
@@ -98,7 +101,7 @@ namespace MergeARM.Tests.Core
                             ]
                           }")
                     },
-                    { @"c:\arm.expected.extended.template.json", new MockFileData(
+                    { @"c:\templates\main\arm.expected.extended.template.json", new MockFileData(
                          @"{
                             ""$schema"": ""https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#"",
                             ""contentVersion"": ""1.0.0.0"",
@@ -130,7 +133,7 @@ namespace MergeARM.Tests.Core
                                 }
                             ]
                          }") }
-                }, currentDirectory: @"C:");
+                }, currentDirectory: CurrentDir);
             }
         }
     }

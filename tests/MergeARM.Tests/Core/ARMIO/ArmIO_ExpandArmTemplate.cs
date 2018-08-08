@@ -24,7 +24,7 @@ namespace MergeARM.Tests.Core.ARMIO
         public void ExpandArmTemplate_Sets_IsExpanded_To_True()
         {
             // Arrange
-            var filePath = @"c:\arm.template.with.templateLink.json";
+            var filePath = @"c:\templates\main\arm.template.with.templateLink.json";
             var arm = sut.LoadArmTemplate(filePath);
 
             // Act
@@ -38,7 +38,7 @@ namespace MergeARM.Tests.Core.ARMIO
         public void ExpandArmTemplate_Produces_Template_Objects()
         {
             // Arrange
-            var filePath = @"c:\arm.template.with.templateLink.json";
+            var filePath = @"c:\templates\main\arm.template.with.templateLink.json";
             var arm = sut.LoadArmTemplate(filePath);
 
             // Act
@@ -52,8 +52,8 @@ namespace MergeARM.Tests.Core.ARMIO
         public void ExpandArmTemplate_Template_Contains_FileContents_Of_LinkedTemplate()
         {
             // Arrange
-            var filePath = @"c:\arm.template.with.templateLink.json";
-            var expectedTemplateContent = JObject.Parse(fileSystem.File.ReadAllText(@"c:\reusable.templates\arm.linked.minimal.template.json"));
+            var filePath = @"c:\templates\main\arm.template.with.templateLink.json";
+            var expectedTemplateContent = JObject.Parse(fileSystem.File.ReadAllText(@"c:\templates\reusable\arm.linked.minimal.template.json"));
             var arm = sut.LoadArmTemplate(filePath);
 
             // Act
@@ -67,8 +67,8 @@ namespace MergeARM.Tests.Core.ARMIO
         public void ExpandArmTemplate_Supports_FilePaths_With_Forward_Slash()
         {
             // Arrange
-            var filePath = @"c:\arm.template.with.forward.slash.templateLink.json";
-            var expectedTemplateContent = JObject.Parse(fileSystem.File.ReadAllText(@"c:\reusable.templates\arm.linked.minimal.template.json"));
+            var filePath = @"c:\templates\main\arm.template.with.forward.slash.templateLink.json";
+            var expectedTemplateContent = JObject.Parse(fileSystem.File.ReadAllText(@"c:\templates\reusable\arm.linked.minimal.template.json"));
             var arm = sut.LoadArmTemplate(filePath);
 
             // Act
@@ -82,8 +82,8 @@ namespace MergeARM.Tests.Core.ARMIO
         public void ExpandArmTemplate_Template_Contains_FileContents_Of_LinkedTemplateWithRelativePath()
         {
             // Arrange
-            var filePath = @"c:\arm.template.with.templateLink.relative.json";
-            var expectedTemplateContent = JObject.Parse(fileSystem.File.ReadAllText(@"c:\reusable.templates\arm.linked.minimal.template.json"));
+            var filePath = @"c:\templates\main\arm.template.with.templateLink.relative.json";
+            var expectedTemplateContent = JObject.Parse(fileSystem.File.ReadAllText(@"c:\templates\reusable\arm.linked.minimal.template.json"));
             var arm = sut.LoadArmTemplate(filePath);
 
             // Act
