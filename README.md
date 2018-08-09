@@ -19,3 +19,7 @@ Tool that enables you to use local file system template links
 - Any template validation is left to Azure until the point a public library is available to do that.
 	The templates are treated as json. 
 	They are considered valid as long as the json is valid.
+
+# Releases
+- using VSTS for CI/CD
+	https://borisjuraga.visualstudio.com/ExpandARM/_build/index?context=mine&path=%5C&definitionId=8&_a=history
