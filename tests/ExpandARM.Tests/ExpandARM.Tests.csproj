@@ -7,8 +7,8 @@
     <ProjectGuid>{3EDA3608-C3A7-4D72-9A62-B2AD4B09AD68}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MergeARM.Tests</RootNamespace>
-    <AssemblyName>MergeARM.Tests</AssemblyName>
+    <RootNamespace>ExpandARM.Tests</RootNamespace>
+    <AssemblyName>ExpandARM.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -79,9 +79,9 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\ARMIO\ArmIO_ExpandArmTemplate.cs" />
-    <Compile Include="Core\ARMIO\ArmIO_LoadArmTemplate.cs" />
-    <Compile Include="Core\ARMIO\ArmIO_StoreExpandedTemplate.cs" />
+    <Compile Include="Core\ArmIO\ArmIO_ExpandArmTemplate.cs" />
+    <Compile Include="Core\ArmIO\ArmIO_LoadArmTemplate.cs" />
+    <Compile Include="Core\ArmIO\ArmIO_StoreExpandedTemplate.cs" />
     <Compile Include="Core\MockFileSystemImpl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -90,9 +90,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\MergeARM\MergeARM.csproj">
+    <ProjectReference Include="..\..\src\ExpandARM\ExpandARM.csproj">
       <Project>{d70e8ed4-9ab5-4f30-af07-d7acc43f50ee}</Project>
-      <Name>MergeARM</Name>
+      <Name>ExpandARM</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

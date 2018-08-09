@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using System.Linq;
 
-namespace MergeARM.Core
+namespace ExpandARM.Core
 {
     public class ArmTemplate
     {

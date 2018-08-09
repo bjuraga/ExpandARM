@@ -1,7 +1,7 @@
-﻿using MergeARM.Core;
+﻿using ExpandARM.Core;
 using System.IO.Abstractions;
 
-namespace MergeARM
+namespace ExpandARM
 {
     internal class Program
     {

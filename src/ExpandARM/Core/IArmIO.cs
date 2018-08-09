@@ -1,4 +1,4 @@
-﻿namespace MergeARM.Core
+﻿namespace ExpandARM.Core
 {
     public interface IArmIO
     {

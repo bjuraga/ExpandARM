@@ -2,7 +2,7 @@
 using System.IO.Abstractions;
 using System.Linq;
 
-namespace MergeARM.Core
+namespace ExpandARM.Core
 {
     public class ArmIO : IArmIO
     {
