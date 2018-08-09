@@ -20,6 +20,7 @@ Tool that enables you to use local file system template links
 	The templates are treated as json. 
 	They are considered valid as long as the json is valid.
 
-# Releases
-- using VSTS for CI/CD
-	https://borisjuraga.visualstudio.com/ExpandARM/_build/index?context=mine&path=%5C&definitionId=8&_a=history
+# CI/CD
+- Using VSTS for CI/CD
+	ci		: https://borisjuraga.visualstudio.com/ExpandARM/_build/index?context=mine&path=%5C&definitionId=7&_a=history 
+	releases: https://borisjuraga.visualstudio.com/ExpandARM/_build/index?context=mine&path=%5C&definitionId=8&_a=history
