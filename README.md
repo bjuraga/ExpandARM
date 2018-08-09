@@ -20,7 +20,9 @@ Tool that enables you to use local file system template links
 	The templates are treated as json. 
 	They are considered valid as long as the json is valid.
 
-# CI/CD
-- Using VSTS for CI/CD
-	ci		: https://borisjuraga.visualstudio.com/ExpandARM/_build/index?context=mine&path=%5C&definitionId=7&_a=history 
-	releases: https://borisjuraga.visualstudio.com/ExpandARM/_build/index?context=mine&path=%5C&definitionId=8&_a=history
+# Usage
+	
+	ExpandARM.exe -i "path\to\arm template"
+
+### build [![Build status](https://borisjuraga.visualstudio.com/ExpandARM/_apis/build/status/ExpandARM_CI)](https://borisjuraga.visualstudio.com/ExpandARM/_build/latest?definitionId=7)
+### release [![Build status](https://borisjuraga.visualstudio.com/ExpandARM/_apis/build/status/ExpandARM_Release)](https://borisjuraga.visualstudio.com/ExpandARM/_build/latest?definitionId=8)
