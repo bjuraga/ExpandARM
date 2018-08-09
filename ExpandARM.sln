@@ -7,9 +7,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7487A7A3-701
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{BB733705-2197-4D98-9A0D-CC6F5E1720A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MergeARM", "src\MergeARM\MergeARM.csproj", "{D70E8ED4-9AB5-4F30-AF07-D7ACC43F50EE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpandARM", "src\ExpandARM\ExpandARM.csproj", "{D70E8ED4-9AB5-4F30-AF07-D7ACC43F50EE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MergeARM.Tests", "tests\MergeARM.Tests\MergeARM.Tests.csproj", "{3EDA3608-C3A7-4D72-9A62-B2AD4B09AD68}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpandARM.Tests", "tests\ExpandARM.Tests\ExpandARM.Tests.csproj", "{3EDA3608-C3A7-4D72-9A62-B2AD4B09AD68}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{EB7D8F6E-FF92-4FC4-B044-AE63BEDCEEE0}"
 	ProjectSection(SolutionItems) = preProject

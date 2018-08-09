@@ -1,21 +1,30 @@
-﻿using FluentAssertions;
-using MergeARM.Core;
+﻿using ExpandARM.Core;
+using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json.Linq;
 using System;
+using System.IO.Abstractions;
 
-namespace MergeARM.Tests.Core.ARMIO
+namespace ExpandARM.Tests.Core.ARMIO
 {
     [TestClass]
     public class ArmIO_LoadArmTemplate
     {
+        private IFileSystem fileSystem;
+        private IArmIO sut;
+
+        [TestInitialize]
+        public void Initialize()
+        {
+            fileSystem = MockFileSystemImpl.FileSystem;
+            sut = ArmIO.Create(fileSystem);
+        }
+
         [TestMethod]
         public void LoadArmTemplate_MinimalFile_Returns_ExpectedArmTemplate()
         {
             // Arrange
-            var fileSystem = MockFileSystemImpl.FileSystem;
-            var filePath = @"c:\minimal.arm.template.json";
-            var sut = ArmIO.Create(fileSystem);
+            var filePath = @"c:\templates\main\minimal.arm.template.json";
             var expectedArmTemplate = new ArmTemplate(filePath, JObject.Parse(fileSystem.File.ReadAllText(filePath)));
 
             // Act
@@ -29,9 +38,7 @@ namespace MergeARM.Tests.Core.ARMIO
         public void LoadArmTemplate_MinimalFile_Contains_resources_array()
         {
             // Arrange
-            var fileSystem = MockFileSystemImpl.FileSystem;
-            var filePath = @"c:\minimal.arm.template.json";
-            var sut = ArmIO.Create(fileSystem);
+            var filePath = @"c:\templates\main\minimal.arm.template.json";
             var arm = sut.LoadArmTemplate(filePath);
 
             // Act
@@ -45,9 +52,7 @@ namespace MergeARM.Tests.Core.ARMIO
         public void LoadArmTemplate_MinimalFileWithoutTemplateLink_Returns_ArmTemplate_With_NeedsExpansion_False()
         {
             // Arrange
-            var fileSystem = MockFileSystemImpl.FileSystem;
-            var filePath = @"c:\minimal.arm.template.json";
-            var sut = ArmIO.Create(fileSystem);
+            var filePath = @"c:\templates\main\minimal.arm.template.json";
 
             // Act
             var arm = sut.LoadArmTemplate(filePath);
@@ -60,9 +65,7 @@ namespace MergeARM.Tests.Core.ARMIO
         public void LoadArmTemplate_WithTemplateLink_Returns_ArmTemplate_With_NeedsExpansion_True()
         {
             // Arrange
-            var fileSystem = MockFileSystemImpl.FileSystem;
-            var filePath = @"c:\arm.template.with.templateLink.json";
-            var sut = ArmIO.Create(fileSystem);
+            var filePath = @"c:\templates\main\arm.template.with.templateLink.json";
 
             // Act
             var arm = sut.LoadArmTemplate(filePath);

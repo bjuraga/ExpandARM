@@ -1,20 +1,29 @@
-﻿using FluentAssertions;
-using MergeARM.Core;
+﻿using ExpandARM.Core;
+using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json.Linq;
+using System.IO.Abstractions;
 
-namespace MergeARM.Tests.Core.ARMIO
+namespace ExpandARM.Tests.Core.ARMIO
 {
     [TestClass]
     public class ArmIO_StoreExpandedTemplate
     {
+        private IFileSystem fileSystem;
+        private IArmIO sut;
+
+        [TestInitialize]
+        public void Initialize()
+        {
+            fileSystem = MockFileSystemImpl.FileSystem;
+            sut = ArmIO.Create(fileSystem);
+        }
+
         [TestMethod]
         public void SaveExpandedTemplate_Should_Be_As_Expected_Template()
         {
             // Arrange
-            var fileSystem = MockFileSystemImpl.FileSystem;
-            var filePath = @"c:\arm.template.with.templateLink.json";
-            var sut = ArmIO.Create(fileSystem);
+            var filePath = @"c:\templates\main\arm.template.with.templateLink.json";
             var arm = sut.LoadArmTemplate(filePath);
             sut.ExpandArmTemplate(arm);
 
@@ -23,7 +32,7 @@ namespace MergeARM.Tests.Core.ARMIO
 
             // Assert
             JObject contentInExpandedFile = JObject.Parse(fileSystem.File.ReadAllText(arm.ExpandedFileName));
-            JObject expectedContent = JObject.Parse(fileSystem.File.ReadAllText(@"c:\arm.expected.extended.template.json"));
+            JObject expectedContent = JObject.Parse(fileSystem.File.ReadAllText(@"c:\templates\main\arm.expected.extended.template.json"));
             contentInExpandedFile.Should().BeEquivalentTo(expectedContent);
         }
     }

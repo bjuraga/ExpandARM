@@ -2,7 +2,7 @@
 using System.IO.Abstractions;
 using System.Linq;
 
-namespace MergeARM.Core
+namespace ExpandARM.Core
 {
     public class ArmIO : IArmIO
     {
@@ -28,7 +28,12 @@ namespace MergeARM.Core
                 .ForEach(t =>
                 {
                     var templateFilePath = ((string)((dynamic)t).uri).Replace("file://", "").Replace("/", "\\");
-                    var templateFileContents = fileSystem.File.ReadAllText(templateFilePath);
+                    var templateFullPath = fileSystem.Path.IsPathRooted(templateFilePath) ?
+                        templateFilePath
+                        :
+                        fileSystem.Path.Combine(fileSystem.Path.GetDirectoryName(armTemplate.FilePath), templateFilePath);
+
+                    var templateFileContents = fileSystem.File.ReadAllText(templateFullPath);
                     var templateJson = JObject.Parse(templateFileContents);
                     t.Parent.Parent["template"] = templateJson;
                     ((JObject)t.Parent.Parent).Property("templateLink").Remove();
