@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{D70E8ED4-9AB5-4F30-AF07-D7ACC43F50EE}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>MergeARM</RootNamespace>
-    <AssemblyName>MergeARM</AssemblyName>
+    <RootNamespace>ExpandARM</RootNamespace>
+    <AssemblyName>ExpandARM</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

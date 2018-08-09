@@ -1,11 +1,11 @@
-﻿using FluentAssertions;
-using MergeARM.Core;
+﻿using ExpandARM.Core;
+using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json.Linq;
 using System;
 using System.IO.Abstractions;
 
-namespace MergeARM.Tests.Core.ARMIO
+namespace ExpandARM.Tests.Core.ARMIO
 {
     [TestClass]
     public class ArmIO_LoadArmTemplate

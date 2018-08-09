@@ -2,7 +2,7 @@
 using System.IO.Abstractions;
 using System.IO.Abstractions.TestingHelpers;
 
-namespace MergeARM.Tests.Core
+namespace ExpandARM.Tests.Core
 {
     public class MockFileSystemImpl
     {
