@@ -92,5 +92,20 @@ namespace ExpandARM.Tests.Core.ARMIO
             // Assert
             arm.ExpandedContent.SelectToken("$..template").ToString().Should().BeEquivalentTo(expectedTemplateContent.ToString());
         }
+
+        [TestMethod]
+        public void ExpandArmTemplate_ContainingNestedTemplate_ContainsFileContents_Of_AllNestedTemplates()
+        {
+            // Arrange
+            var filePath = @"c:\templates\main\minimal.arm.template.nested.3.levels.json";
+            var expectedTemplateContent = JObject.Parse(fileSystem.File.ReadAllText(@"c:\templates\main\minimal.arm.template.nested.3.levels.test.json"));
+            var arm = sut.LoadArmTemplate(filePath);
+
+            // Act
+            sut.ExpandArmTemplate(arm);
+
+            // Assert
+            arm.ExpandedContent.ToString().Should().BeEquivalentTo(expectedTemplateContent.ToString());
+        }
     }
 }

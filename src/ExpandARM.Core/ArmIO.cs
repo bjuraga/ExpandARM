@@ -28,14 +28,12 @@ namespace ExpandARM.Core
                 .ForEach(t =>
                 {
                     var templateFilePath = ((string)((dynamic)t).uri).Replace("file://", "").Replace("/", "\\");
-                    var templateFullPath = fileSystem.Path.IsPathRooted(templateFilePath) ?
-                        templateFilePath
-                        :
-                        fileSystem.Path.Combine(fileSystem.Path.GetDirectoryName(armTemplate.FilePath), templateFilePath);
+                    string templateFullPath = GetFullPath(armTemplate.FilePath, templateFilePath);
 
-                    var templateFileContents = fileSystem.File.ReadAllText(templateFullPath);
-                    var templateJson = JObject.Parse(templateFileContents);
-                    t.Parent.Parent["template"] = templateJson;
+                    var nestedTemplate = LoadArmTemplate(templateFullPath);
+                    ExpandArmTemplate(nestedTemplate);
+                    t.Parent.Parent["template"] = nestedTemplate.ExpandedContent;
+
                     ((JObject)t.Parent.Parent).Property("templateLink").Remove();
                 });
         }
@@ -52,6 +50,13 @@ namespace ExpandARM.Core
         public static IArmIO Create(IFileSystem fileSystem)
         {
             return new ArmIO(fileSystem);
+        }
+
+        private string GetFullPath(string hostFilePath, string templateFilePath)
+        {
+            return fileSystem.Path.IsPathRooted(templateFilePath) ?
+                templateFilePath :
+                fileSystem.Path.Combine(fileSystem.Path.GetDirectoryName(hostFilePath), templateFilePath);
         }
     }
 }

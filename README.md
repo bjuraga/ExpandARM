@@ -4,14 +4,14 @@ Tool that enables you to use local file system template links
 # Currently supported:
 - Use fully qualified  or relative file:// links in the templateLink url
 - Supports forward slash directory separator
+- Expand nested templates
 - Currently the expanded ARM template is stored with adding '.expanded' between the file name and extension.
 	Example: C:\template.expanded.json
 	If the file already exists, it will be owerriden. 
 
 # Planned features (roadmap):
-- Expand nested templates
-- Option to save nested templates to filesystem also
-- Use http:// links
+- Option to save nested templates to filesystem while expanding the parent
+- Use https:// links
 - Support for parameterLink expansion
 - Detect endless loops
 

@@ -9,7 +9,6 @@ namespace ExpandARM.Tests.Core
         public static string CurrentDir = @"C:\some\unrelated\dir";
 
         public static IFileSystem FileSystem
-
         {
             get
             {
@@ -17,12 +16,18 @@ namespace ExpandARM.Tests.Core
                 {
                     { @"c:\templates\main\minimal.arm.template.json",  new MockFileData("{ \"resources\": []}") },
 
+                    { @"c:\templates\main\minimal.arm.template.nested.3.levels.json",  new MockFileData("{ \"resources\": [{ \"name\":\"topLevel\", \"properties\": {\"templateLink\": {\"uri\":\"file://c:/templates/reusable/minimal.arm.template.level.2.json\"}}}]}") },
+
+                    { @"c:\templates\reusable\minimal.arm.template.level.2.json",  new MockFileData("{ \"resources\": [{ \"name\":\"levelTwo\", \"properties\": {\"templateLink\": {\"uri\":\"file://c:/templates/reusable/minimal.arm.template.level.1.json\"}}}]}") },
+
+                    { @"c:\templates\reusable\minimal.arm.template.level.1.json",  new MockFileData("{ \"resources\": [{ \"name\":\"levelOne\" }]}") },
+
+                    { @"c:\templates\main\minimal.arm.template.nested.3.levels.test.json",  new MockFileData("{ \"resources\": [{ \"name\":\"topLevel\", \"properties\": {\"template\": { \"resources\": [{ \"name\":\"levelTwo\", \"properties\": {\"template\": { \"resources\": [{\"name\":\"levelOne\" }]}}}]}}}]}") },
+
                     { @"c:\templates\main\arm.template.with.templateLink.json", new MockFileData(
                         @"{
                             ""$schema"": ""https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#"",
                             ""contentVersion"": ""1.0.0.0"",
-                            ""parameters"": {},
-                            ""variables"": {},
                             ""resources"": [
                                 {
                                     ""apiVersion"": ""2017-05-10"",
@@ -43,8 +48,6 @@ namespace ExpandARM.Tests.Core
                         @"{
                             ""$schema"": ""https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#"",
                             ""contentVersion"": ""1.0.0.0"",
-                            ""parameters"": {},
-                            ""variables"": {},
                             ""resources"": [
                                 {
                                     ""apiVersion"": ""2017-05-10"",
@@ -65,8 +68,6 @@ namespace ExpandARM.Tests.Core
                         @"{
                             ""$schema"": ""https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#"",
                             ""contentVersion"": ""1.0.0.0"",
-                            ""parameters"": {},
-                            ""variables"": {},
                             ""resources"": [
                                 {
                                     ""apiVersion"": ""2017-05-10"",
@@ -105,8 +106,6 @@ namespace ExpandARM.Tests.Core
                          @"{
                             ""$schema"": ""https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#"",
                             ""contentVersion"": ""1.0.0.0"",
-                            ""parameters"": {},
-                            ""variables"": {},
                             ""resources"": [
                                 {
                                     ""apiVersion"": ""2017-05-10"",
