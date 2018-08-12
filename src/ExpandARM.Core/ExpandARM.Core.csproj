@@ -48,6 +48,9 @@
   <ItemGroup>
     <Compile Include="ArmIO.cs" />
     <Compile Include="ArmTemplate.cs" />
+    <Compile Include="Exceptions\ReferenceLoopException.cs" />
+    <Compile Include="Exceptions\SelfReferenceException.cs" />
+    <Compile Include="Exceptions\ExpandArmException.cs" />
     <Compile Include="IArmIO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

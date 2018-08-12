@@ -1,5 +1,6 @@
 ﻿using CommandLine;
 using ExpandARM.Core;
+using ExpandARM.Core.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.IO.Abstractions;
@@ -11,8 +12,8 @@ namespace ExpandARM
         private static void Main(string[] args)
         {
             Parser.Default.ParseArguments<Options>(args)
-                .WithParsed<Options>(opts => RunOptionsAndReturnExitCode(opts))
-                .WithNotParsed<Options>((errs) => HandleParseError(errs));
+                .WithParsed(opts => RunOptionsAndReturnExitCode(opts))
+                .WithNotParsed((errs) => HandleParseError(errs));
         }
 
         private static void HandleParseError(IEnumerable<Error> errs)
@@ -22,16 +23,27 @@ namespace ExpandARM
 
         private static void RunOptionsAndReturnExitCode(Options commandLineOptions)
         {
-            var armio = ArmIO.Create(new FileSystem());
+            try
+            {
+                var armio = ArmIO.Create(new FileSystem());
 
-            // Load file
-            var armTemplate = armio.LoadArmTemplate(commandLineOptions.InputFile);
+                // Load file
+                var armTemplate = armio.LoadArmTemplate(commandLineOptions.InputFile);
 
-            // Expand file
-            armio.ExpandArmTemplate(armTemplate);
+                // Expand file
+                armio.ExpandArmTemplate(armTemplate);
 
-            // Save a copy of the file
-            armio.SaveExpandedTemplate(armTemplate);
+                // Save a copy of the file
+                armio.SaveExpandedTemplate(armTemplate);
+            }
+            catch (ExpandArmException)
+            {
+                throw;
+            }
+            catch (Exception e)
+            {
+                throw new ExpandArmException("Unhandled exception caught.", e);
+            }
         }
     }
 }

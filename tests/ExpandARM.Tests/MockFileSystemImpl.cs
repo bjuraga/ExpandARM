@@ -16,13 +16,19 @@ namespace ExpandARM.Tests.Core
                 {
                     { @"c:\templates\main\minimal.arm.template.json",  new MockFileData("{ \"resources\": []}") },
 
-                    { @"c:\templates\main\minimal.arm.template.nested.3.levels.json",  new MockFileData("{ \"resources\": [{ \"name\":\"topLevel\", \"properties\": {\"templateLink\": {\"uri\":\"file://c:/templates/reusable/minimal.arm.template.level.2.json\"}}}]}") },
+                    { @"c:\templates\main\minimal.arm.template.nested.3.levels.json",  new MockFileData("{ \"resources\": [{ \"name\":\"topLevel\", \"properties\": {\"templateLink\": {\"uri\":\"file://../reusable/minimal.arm.template.level.2.json\"}}}]}") },
 
                     { @"c:\templates\reusable\minimal.arm.template.level.2.json",  new MockFileData("{ \"resources\": [{ \"name\":\"levelTwo\", \"properties\": {\"templateLink\": {\"uri\":\"file://c:/templates/reusable/minimal.arm.template.level.1.json\"}}}]}") },
 
                     { @"c:\templates\reusable\minimal.arm.template.level.1.json",  new MockFileData("{ \"resources\": [{ \"name\":\"levelOne\" }]}") },
 
+                    { @"c:\templates\main\minimal.arm.template.self.referencing.json",  new MockFileData("{ \"resources\": [{ \"name\":\"topLevel\", \"properties\": {\"templateLink\": {\"uri\":\"file://minimal.arm.template.SELF.referencing.json\"}}}]}") },
+
                     { @"c:\templates\main\minimal.arm.template.nested.3.levels.test.json",  new MockFileData("{ \"resources\": [{ \"name\":\"topLevel\", \"properties\": {\"template\": { \"resources\": [{ \"name\":\"levelTwo\", \"properties\": {\"template\": { \"resources\": [{\"name\":\"levelOne\" }]}}}]}}}]}") },
+
+                    { @"c:\templates\main\minimal.arm.template.selfreference.parent.json",  new MockFileData("{ \"resources\": [{ \"name\":\"topLevel\", \"properties\": {\"templateLink\": {\"uri\":\"file://../reusable/minimal.arm.template.child.referencing.parent.json\"}}}]}") },
+
+                    { @"c:\templates\reusable\minimal.arm.template.child.referencing.parent.json",  new MockFileData("{ \"resources\": [{ \"name\":\"levelTwo\", \"properties\": {\"templateLink\": {\"uri\":\"file://../main/minimal.arm.template.selfreference.parent.json\"}}}]}") },
 
                     { @"c:\templates\main\arm.template.with.templateLink.json", new MockFileData(
                         @"{
@@ -42,7 +48,8 @@ namespace ExpandARM.Tests.Core
                                     }
                                 }
                             ]
-                         }") },
+                         }")
+                    },
 
                     { @"c:\templates\main\arm.template.with.templateLink.relative.json", new MockFileData(
                         @"{
@@ -62,7 +69,8 @@ namespace ExpandARM.Tests.Core
                                     }
                                 }
                             ]
-                         }") },
+                         }")
+                    },
 
                     { @"c:\templates\main\arm.template.with.forward.slash.templateLink.json", new MockFileData(
                         @"{
@@ -82,7 +90,8 @@ namespace ExpandARM.Tests.Core
                                     }
                                 }
                             ]
-                         }") },
+                         }")
+                    },
 
                     { @"c:\templates\reusable\arm.linked.minimal.template.json", new MockFileData(
                         @"
@@ -102,6 +111,7 @@ namespace ExpandARM.Tests.Core
                             ]
                           }")
                     },
+
                     { @"c:\templates\main\arm.expected.extended.template.json", new MockFileData(
                          @"{
                             ""$schema"": ""https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#"",
@@ -131,8 +141,10 @@ namespace ExpandARM.Tests.Core
                                     }
                                 }
                             ]
-                         }") }
-                }, currentDirectory: CurrentDir);
+                         }")
+                    }
+                },
+                currentDirectory: CurrentDir);
             }
         }
     }

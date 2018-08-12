@@ -1,7 +1,9 @@
 ﻿using ExpandARM.Core;
+using ExpandARM.Core.Exceptions;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json.Linq;
+using System;
 using System.IO.Abstractions;
 using System.Linq;
 
@@ -106,6 +108,34 @@ namespace ExpandARM.Tests.Core.ARMIO
 
             // Assert
             arm.ExpandedContent.ToString().Should().BeEquivalentTo(expectedTemplateContent.ToString());
+        }
+
+        [TestMethod]
+        public void ExpandArmTemplate_ReferencingSelf_Throws_SelfReferenceException()
+        {
+            // Arrange
+            var filePath = @"c:\templates\main\minimal.arm.template.self.referencing.json";
+            var arm = sut.LoadArmTemplate(filePath);
+
+            // Act
+            Action act = () => sut.ExpandArmTemplate(arm);
+
+            // Assert
+            act.Should().Throw<SelfReferenceException>();
+        }
+
+        [TestMethod]
+        public void ExpandArmTemplate_ReferencingParent_Throws_ReferenceLoopException()
+        {
+            // Arrange
+            var filePath = @"c:\templates\main\minimal.arm.template.selfreference.parent.json";
+            var arm = sut.LoadArmTemplate(filePath);
+
+            // Act
+            Action act = () => sut.ExpandArmTemplate(arm);
+
+            // Assert
+            act.Should().Throw<ReferenceLoopException>();
         }
     }
 }
