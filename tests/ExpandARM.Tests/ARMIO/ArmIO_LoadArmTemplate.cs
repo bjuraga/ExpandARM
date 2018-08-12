@@ -73,5 +73,20 @@ namespace ExpandARM.Tests.Core.ARMIO
             // Assert
             arm.NeedsExpansion.Should().Be(true);
         }
+
+        [TestMethod]
+        public void LoadArmTemplate_MinimalFileByRelativePath_Returns_ArmTemplate_With_Expected_Contents()
+        {
+            // Arrange
+            // simulate working directory is set to C:\templates\main\
+            fileSystem.Directory.SetCurrentDirectory(@"c:\templates\main\");
+            var filePath = @"minimal.arm.template.json";
+
+            // Act
+            var arm = sut.LoadArmTemplate(filePath);
+
+            // Assert
+            fileSystem.Path.IsPathRooted(arm.FilePath).Should().BeTrue();
+        }
     }
 }

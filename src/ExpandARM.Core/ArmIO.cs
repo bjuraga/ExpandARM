@@ -18,9 +18,11 @@ namespace ExpandARM.Core
 
         public ArmTemplate LoadArmTemplate(string filePath)
         {
-            var fileText = fileSystem.File.ReadAllText(filePath);
+            var fullPath = GetFullPath(fileSystem.Directory.GetCurrentDirectory(), filePath);
+
+            var fileText = fileSystem.File.ReadAllText(fullPath);
             var jObject = JObject.Parse(fileText);
-            return new ArmTemplate(filePath, jObject);
+            return new ArmTemplate(fullPath, jObject);
         }
 
         public void ExpandArmTemplate(ArmTemplate armTemplate)
