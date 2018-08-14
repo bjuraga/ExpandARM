@@ -6,6 +6,7 @@ Tool that enables you to use local file system template links
 - Supports forward slash directory separator
 - Expand nested templates
 - Detect endless loops
+- Support for parameterLink expansion
 - Currently the expanded ARM template is stored with adding '.expanded' between the file name and extension.
 	Example: C:\template.expanded.json
 	If the file already exists, it will be owerriden. 
@@ -13,7 +14,6 @@ Tool that enables you to use local file system template links
 # Planned features (roadmap):
 - Option to save nested templates to filesystem while expanding the parent
 - Support for https:// links
-- Support for parameterLink expansion
 
 # Not supported or planned features
 - Any template validation is left to Azure until the point a public library is available to do that.

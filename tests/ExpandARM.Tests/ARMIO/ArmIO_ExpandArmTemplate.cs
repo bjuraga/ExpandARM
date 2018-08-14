@@ -100,14 +100,14 @@ namespace ExpandARM.Tests.Core.ARMIO
         {
             // Arrange
             var filePath = @"c:\templates\main\minimal.arm.template.nested.3.levels.json";
-            var expectedTemplateContent = JObject.Parse(fileSystem.File.ReadAllText(@"c:\templates\main\minimal.arm.template.nested.3.levels.test.json"));
             var arm = sut.LoadArmTemplate(filePath);
+            var expectedTemplate = sut.LoadArmTemplate(@"c:\templates\main\minimal.arm.template.nested.3.levels.test.json");
 
             // Act
             sut.ExpandArmTemplate(arm);
 
             // Assert
-            arm.ExpandedContent.ToString().Should().BeEquivalentTo(expectedTemplateContent.ToString());
+            arm.ExpandedContent.Should().BeEquivalentTo(expectedTemplate.OriginalContent);
         }
 
         [TestMethod]
@@ -136,6 +136,22 @@ namespace ExpandARM.Tests.Core.ARMIO
 
             // Assert
             act.Should().Throw<ReferenceLoopException>();
+        }
+
+        [TestMethod]
+        public void ExpandArmTemplate_WithParametersLink_Returns_ExpectedArmTemplate()
+        {
+            // Arrange
+            var filePath = @"c:\templates\main\minimal.arm.template.with.linked.parameters.json";
+            var filePathExpected = @"c:\templates\main\minimal.arm.template.with.linked.parameters.expanded.json";
+            var arm = sut.LoadArmTemplate(filePath);
+            var expectedArmTemplate = sut.LoadArmTemplate(filePathExpected);
+
+            // Act
+            sut.ExpandArmTemplate(arm);
+
+            // Assert
+            arm.ExpandedContent.Should().BeEquivalentTo(expectedArmTemplate.OriginalContent);
         }
     }
 }

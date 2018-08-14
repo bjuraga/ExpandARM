@@ -30,6 +30,12 @@ namespace ExpandARM.Tests.Core
 
                     { @"c:\templates\reusable\minimal.arm.template.child.referencing.parent.json",  new MockFileData("{ \"resources\": [{ \"name\":\"levelTwo\", \"properties\": {\"templateLink\": {\"uri\":\"file://../main/minimal.arm.template.selfreference.parent.json\"}}}]}") },
 
+                    { @"c:\templates\main\minimal.arm.template.with.linked.parameters.json",  new MockFileData("{ \"resources\": [{ \"name\":\"linkedParams\", \"properties\": {\"parametersLink\": {\"uri\":\"file://../reusable/parameters.json\"}}}]}") },
+
+                    { @"c:\templates\reusable\parameters.json",  new MockFileData("{ \"path\":\"some_path\"}") },
+
+                    { @"c:\templates\main\minimal.arm.template.with.linked.parameters.expanded.json",  new MockFileData("{ \"resources\": [{ \"name\":\"linkedParams\", \"properties\": {\"parameters\": { \"path\":\"some_path\"}}}]}") },
+
                     { @"c:\templates\main\arm.template.with.templateLink.json", new MockFileData(
                         @"{
                             ""$schema"": ""https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#"",
