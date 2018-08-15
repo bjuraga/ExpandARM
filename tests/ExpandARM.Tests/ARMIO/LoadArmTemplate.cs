@@ -1,14 +1,13 @@
-﻿using ExpandARM.Core;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json.Linq;
 using System;
 using System.IO.Abstractions;
 
-namespace ExpandARM.Tests.Core.ARMIO
+namespace ExpandARM.Core.UnitTests
 {
     [TestClass]
-    public class ArmIO_LoadArmTemplate
+    public class LoadArmTemplate
     {
         private IFileSystem fileSystem;
         private IArmIO sut;

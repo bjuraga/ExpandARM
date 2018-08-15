@@ -2,7 +2,7 @@
 using System.IO.Abstractions;
 using System.IO.Abstractions.TestingHelpers;
 
-namespace ExpandARM.Tests.Core
+namespace ExpandARM.Core.UnitTests
 {
     public class MockFileSystemImpl
     {

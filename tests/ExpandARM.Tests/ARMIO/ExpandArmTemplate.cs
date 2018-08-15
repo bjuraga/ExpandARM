@@ -1,5 +1,4 @@
-﻿using ExpandARM.Core;
-using ExpandARM.Core.Exceptions;
+﻿using ExpandARM.Core.Exceptions;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json.Linq;
@@ -7,10 +6,10 @@ using System;
 using System.IO.Abstractions;
 using System.Linq;
 
-namespace ExpandARM.Tests.Core.ARMIO
+namespace ExpandARM.Core.UnitTests
 {
     [TestClass]
-    public class ArmIO_ExpandArmTemplate
+    public class ExpandArmTemplate
     {
         private IFileSystem fileSystem;
         private IArmIO sut;
