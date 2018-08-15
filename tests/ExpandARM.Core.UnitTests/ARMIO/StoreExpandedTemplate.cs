@@ -34,5 +34,20 @@ namespace ExpandARM.Core.UnitTests
             JObject expectedContent = JObject.Parse(fileSystem.File.ReadAllText(@"c:\templates\main\arm.expected.extended.template.json"));
             contentInExpandedFile.Should().BeEquivalentTo(expectedContent);
         }
+
+        [TestMethod]
+        public void SaveExpandedTemplate_ShouldHaveCorrectExpandedFilename()
+        {
+            // Arrange
+            var filePath = @"c:\templates\main\arm.template.with.templateLink.json";
+            var arm = sut.LoadArmTemplate(filePath);
+            sut.ExpandArmTemplate(arm);
+
+            // Act
+            sut.SaveExpandedTemplate(arm);
+
+            // Assert
+            arm.ExpandedFileName.Should().EndWith("expanded.json");
+        }
     }
 }

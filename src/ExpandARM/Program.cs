@@ -7,9 +7,9 @@ using System.IO.Abstractions;
 
 namespace ExpandARM
 {
-    public class Program
+    internal class Program
     {
-        public static void Main(string[] args)
+        internal static void Main(string[] args)
         {
             Parser.Default.ParseArguments<Options>(args)
                 .WithParsed(opts => MainImpl(opts))

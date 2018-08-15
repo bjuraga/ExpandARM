@@ -34,7 +34,7 @@ namespace ExpandARM.Core
 
         public void SaveExpandedTemplate(ArmTemplate armTemplate)
         {
-            var storeFileName = fileSystem.Path.ChangeExtension(armTemplate.FilePath, "expanded.josn");
+            var storeFileName = fileSystem.Path.ChangeExtension(armTemplate.FilePath, "expanded.json");
 
             armTemplate.ExpandedFileName = storeFileName;
 
@@ -55,7 +55,7 @@ namespace ExpandARM.Core
                 .ForEach(t =>
                 {
                     var templateFilePath = ((string)((dynamic)t).uri).Replace("file://", "").Replace("/", "\\");
-                    string templateFullPath = GetFullPath(armTemplate.FilePath, templateFilePath);
+                    string templateFullPath = GetFullPath(fileSystem.Path.GetDirectoryName(armTemplate.FilePath), templateFilePath);
 
                     if (string.Equals(armTemplate.FilePath, templateFullPath, StringComparison.InvariantCultureIgnoreCase))
                     {
@@ -83,7 +83,7 @@ namespace ExpandARM.Core
         {
             var path = fileSystem.Path.IsPathRooted(templateFilePath) ?
                 templateFilePath :
-                fileSystem.Path.Combine(fileSystem.Path.GetDirectoryName(hostFilePath), templateFilePath);
+                fileSystem.Path.Combine(hostFilePath, templateFilePath);
 
             var fullPath = fileSystem.Path.GetFullPath(path);
 
