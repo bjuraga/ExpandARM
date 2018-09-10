@@ -1,4 +1,4 @@
-name: bjuraga.ExpandARM.CICD
+name: bjuraga.ExpandARM.CI
 resources:
 - repo: self
   clean: true
@@ -6,14 +6,15 @@ variables:
   Parameters.solution: '**\*.sln'
   BuildPlatform: 'any cpu'
   BuildConfiguration: 'release'
-queue:
-  name: Hosted VS2017
-  demands: 
-  - msbuild
-  - visualstudio
-  - vstest
+
 jobs:
 - job: CI
+  pool:
+    name: Hosted VS2017
+    demands: 
+    - msbuild
+    - visualstudio
+    - vstest
   steps:
   - task: gittools.gitversion.gitversion-task.GitVersion@3
     displayName: GitVersion
@@ -49,6 +50,12 @@ jobs:
 
 - job: CD
   dependsOn: CI
+  pool:
+    name: Hosted VS2017
+    demands: 
+    - msbuild
+    - visualstudio
+    - vstest
   condition: and( succeeded('CI'), eq(variables['Build.Reason'], 'Manual') )
   steps:
   - task: CopyFiles@2
