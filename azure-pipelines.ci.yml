@@ -1,3 +1,4 @@
+name: bjuraga.ExpandARM.CI
 resources:
 - repo: self
   clean: true
