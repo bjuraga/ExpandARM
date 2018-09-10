@@ -50,7 +50,7 @@ jobs:
 
   - task: CopyFiles@2
     displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
-	condition: 'and( succeeded(), eq(variables['Build.Reason'], 'Manual') )'
+    condition: and( succeeded(), eq(variables['Build.Reason'], 'Manual') )
     inputs:
       SourceFolder: src/  
       Contents: '**/bin/**/*.exe'  
@@ -58,13 +58,13 @@ jobs:
   
   - task: PublishBuildArtifacts@1
     displayName: 'Publish Artifact: drop'
-	condition: 'and( succeeded(), eq(variables['Build.Reason'], 'Manual') )'
+    condition: and( succeeded(), eq(variables['Build.Reason'], 'Manual') )
     inputs:
       PathtoPublish: '$(build.artifactstagingdirectory)'
   
   - task: marcelo-formentao.github-tools.github-release-publish-task.GitHubReleasePublish@0
     displayName: 'Create or Modify GitHub Release'
-	condition: 'and( succeeded(), eq(variables['Build.Reason'], 'Manual') )'
+    condition: and( succeeded(), eq(variables['Build.Reason'], 'Manual') )
     inputs:
       githubEndpoint: 'GitHub_Conn'  
       githubRepository: bjuraga/ExpandARM  
