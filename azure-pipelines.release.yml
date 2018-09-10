@@ -1,4 +1,5 @@
 name: bjuraga.ExpandARM.Release
+trigger: none
 resources:
 - repo: self
   clean: true
