@@ -40,8 +40,9 @@ namespace ExpandARM.Core
         public string SaveExpandedTemplate(ArmTemplate armTemplate, string outputFilePath)
         {
             var acctualOutputFilePath =
-                outputFilePath ??
-                fileSystem.Path.ChangeExtension(armTemplate.FilePath, "expanded.json");
+                string.IsNullOrWhiteSpace(outputFilePath) ?
+                fileSystem.Path.ChangeExtension(armTemplate.FilePath, "expanded.json") :
+                outputFilePath;
 
             fileSystem.File.WriteAllText(acctualOutputFilePath, armTemplate.ExpandedContent.ToString());
 
