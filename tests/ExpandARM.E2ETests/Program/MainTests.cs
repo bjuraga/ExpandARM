@@ -18,8 +18,7 @@ namespace ExpandARM.E2ETests
             var argumentsToPass = $"-i {inputFileName}";
 
             // Act
-            var expandARMProcess = Process.Start("ExpandARM.exe", argumentsToPass);
-            expandARMProcess.WaitForExit();
+            Process.Start("ExpandARM.exe", argumentsToPass).WaitForExit();
 
             // Assert
             var inputFileJObject = JObject.Parse(File.ReadAllText(inputFileName));
