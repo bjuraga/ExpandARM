@@ -10,10 +10,10 @@ Generate expanded ARM templates from templates with template links from local fi
 - Currently the expanded ARM template is stored with adding '.expanded' between the file name and extension.
 	Example: C:\template.expanded.json
 	If the file already exists, it will be owerriden. 
+- Option to set the expanded file name
 
 # Planned features (roadmap):
 - Option to save nested templates to filesystem while expanding the parent
-- Option to set the expanded file name
 - Support for https:// links
 
 # Not supported or planned features
