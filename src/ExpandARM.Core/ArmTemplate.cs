@@ -15,8 +15,6 @@ namespace ExpandARM.Core
 
         public JObject ExpandedContent { get; set; }
 
-        public string ExpandedFileName { get; internal set; }
-
         public ArmTemplate(string filePath, JObject jObject)
         {
             FilePath = filePath;

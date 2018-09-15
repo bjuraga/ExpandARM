@@ -23,7 +23,7 @@ namespace ExpandARM
                 var armio = ArmIO.Create(new FileSystem());
                 var armTemplate = armio.LoadArmTemplate(commandLineOptions.InputFile);
                 armio.ExpandArmTemplate(armTemplate);
-                armio.SaveExpandedTemplate(armTemplate);
+                armio.SaveExpandedTemplate(armTemplate, commandLineOptions.OutputFile);
             }
             catch (ExpandArmException)
             {

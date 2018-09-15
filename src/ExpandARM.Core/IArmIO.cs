@@ -6,6 +6,8 @@
 
         void ExpandArmTemplate(ArmTemplate armTemplate);
 
-        void SaveExpandedTemplate(ArmTemplate armTemplate);
+        string SaveExpandedTemplate(ArmTemplate armTemplate);
+
+        string SaveExpandedTemplate(ArmTemplate armTemplate, string outputFilePath);
     }
 }

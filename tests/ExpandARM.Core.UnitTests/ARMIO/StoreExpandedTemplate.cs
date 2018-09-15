@@ -27,10 +27,10 @@ namespace ExpandARM.Core.UnitTests
             sut.ExpandArmTemplate(arm);
 
             // Act
-            sut.SaveExpandedTemplate(arm);
+            var storedFileName = sut.SaveExpandedTemplate(arm);
 
             // Assert
-            JObject contentInExpandedFile = JObject.Parse(fileSystem.File.ReadAllText(arm.ExpandedFileName));
+            JObject contentInExpandedFile = JObject.Parse(fileSystem.File.ReadAllText(storedFileName));
             JObject expectedContent = JObject.Parse(fileSystem.File.ReadAllText(@"c:\templates\main\arm.expected.extended.template.json"));
             contentInExpandedFile.Should().BeEquivalentTo(expectedContent);
         }
@@ -44,10 +44,26 @@ namespace ExpandARM.Core.UnitTests
             sut.ExpandArmTemplate(arm);
 
             // Act
-            sut.SaveExpandedTemplate(arm);
+            var storedFileName = sut.SaveExpandedTemplate(arm);
 
             // Assert
-            arm.ExpandedFileName.Should().EndWith("expanded.json");
+            storedFileName.Should().EndWith("expanded.json");
+        }
+
+        [TestMethod]
+        public void SaveExpandedTemplate_IfOutputFilenameProived_ItIsUsed()
+        {
+            // Arrange
+            var inputFilePath = @"c:\templates\main\arm.template.with.templateLink.json";
+            var expectedOutputFilePath = @"c:\templates\main\arm.template.with.templateLink.processed.json";
+            var arm = sut.LoadArmTemplate(inputFilePath);
+            sut.ExpandArmTemplate(arm);
+
+            // Act
+            var storedFileName = sut.SaveExpandedTemplate(arm, expectedOutputFilePath);
+
+            // Assert
+            storedFileName.Should().Be(expectedOutputFilePath);
         }
     }
 }

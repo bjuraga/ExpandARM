@@ -25,5 +25,22 @@ namespace ExpandARM.E2ETests
             var outputFileJObject = JObject.Parse(File.ReadAllText(outputFileName));
             inputFileJObject.Should().BeEquivalentTo(outputFileJObject);
         }
+
+        [TestMethod]
+        public void Main_WithMinimalTemplateWithoutLinks_UsesTheOutputFileParameter()
+        {
+            // Arrange
+            var inputFileName = @"TestData\templates\main\minimal.template.without.links.json";
+            var outputFileName = @"TestData\templates\main\minimal.template.without.links.processed.json";
+            var argumentsToPass = $"-i {inputFileName} -o {outputFileName}";
+
+            // Act
+            Process.Start("ExpandARM.exe", argumentsToPass).WaitForExit();
+
+            // Assert
+            var inputFileJObject = JObject.Parse(File.ReadAllText(inputFileName));
+            var outputFileJObject = JObject.Parse(File.ReadAllText(outputFileName));
+            inputFileJObject.Should().BeEquivalentTo(outputFileJObject);
+        }
     }
 }

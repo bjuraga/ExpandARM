@@ -32,13 +32,20 @@ namespace ExpandARM.Core
             ExpandArmTemplateImpl(armTemplate, uniqueArmTemplateFullPaths);
         }
 
-        public void SaveExpandedTemplate(ArmTemplate armTemplate)
+        public string SaveExpandedTemplate(ArmTemplate armTemplate)
         {
-            var storeFileName = fileSystem.Path.ChangeExtension(armTemplate.FilePath, "expanded.json");
+            return SaveExpandedTemplate(armTemplate, null);
+        }
 
-            armTemplate.ExpandedFileName = storeFileName;
+        public string SaveExpandedTemplate(ArmTemplate armTemplate, string outputFilePath)
+        {
+            var acctualOutputFilePath =
+                outputFilePath ??
+                fileSystem.Path.ChangeExtension(armTemplate.FilePath, "expanded.json");
 
-            fileSystem.File.WriteAllText(storeFileName, armTemplate.ExpandedContent.ToString());
+            fileSystem.File.WriteAllText(acctualOutputFilePath, armTemplate.ExpandedContent.ToString());
+
+            return acctualOutputFilePath;
         }
 
         public static IArmIO Create(IFileSystem fileSystem)
