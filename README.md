@@ -1,5 +1,5 @@
 # Introduction
-Tool that enables you to use local file system template links
+Generate expanded ARM templates from templates with template links from local file system.  Simply upload the expanded template to Azure without the need of also uploading your nested templates. Enables you to test ARM templates which contain template links by using tools like Pester.
 
 # Currently supported:
 - Use fully qualified  or relative file:// links in the templateLink url
@@ -13,6 +13,7 @@ Tool that enables you to use local file system template links
 
 # Planned features (roadmap):
 - Option to save nested templates to filesystem while expanding the parent
+- Option to set the expanded file name
 - Support for https:// links
 
 # Not supported or planned features
@@ -22,7 +23,6 @@ Tool that enables you to use local file system template links
 
 # Usage
 	
-	ExpandARM.exe -i "path\to\arm template"
+	ExpandARM.exe -i "webapp-with-trafficmanager-deployment.json"
 
-### build [![Build status](https://borisjuraga.visualstudio.com/ExpandARM/_apis/build/status/ExpandARM_CI)](https://borisjuraga.visualstudio.com/ExpandARM/_build/latest?definitionId=7)
-### release [![Build status](https://borisjuraga.visualstudio.com/ExpandARM/_apis/build/status/ExpandARM_Release)](https://borisjuraga.visualstudio.com/ExpandARM/_build/latest?definitionId=8)
+### build [![Build Status](https://borisjuraga.visualstudio.com/ExpandARM/_apis/build/status/bjuraga.ExpandARM)](https://borisjuraga.visualstudio.com/ExpandARM/_build/latest?definitionId=11)
