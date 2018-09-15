@@ -13,6 +13,7 @@ Generate expanded ARM templates from templates with template links from local fi
 
 # Planned features (roadmap):
 - Option to save nested templates to filesystem while expanding the parent
+- Option to set the expanded file name
 - Support for https:// links
 
 # Not supported or planned features
@@ -22,6 +23,6 @@ Generate expanded ARM templates from templates with template links from local fi
 
 # Usage
 	
-	ExpandARM.exe -i "path\to\arm template"
+	ExpandARM.exe -i "webapp-with-trafficmanager-deployment.json"
 
 ### build [![Build Status](https://borisjuraga.visualstudio.com/ExpandARM/_apis/build/status/bjuraga.ExpandARM)](https://borisjuraga.visualstudio.com/ExpandARM/_build/latest?definitionId=11)
