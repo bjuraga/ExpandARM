@@ -16,14 +16,24 @@ namespace ExpandARM
                 .WithNotParsed((errs) => HandleParseError(errs));
         }
 
-        private static void MainImpl(Options commandLineOptions)
+        private static void MainImpl(Options options)
         {
             try
             {
+                if (options.Verbose)
+                {
+                    Console.WriteLine($"Verbose output enabled. Current Arguments: -i {options.InputFile} -o {options.OutputFile} -v {options.Verbose}");
+                    Console.WriteLine("ExpandARM is in Verbose mode!");
+                }
+                else
+                {
+                    Console.WriteLine("ExpandARM");
+                }
+
                 var armio = ArmIO.Create(new FileSystem());
-                var armTemplate = armio.LoadArmTemplate(commandLineOptions.InputFile);
+                var armTemplate = armio.LoadArmTemplate(options.InputFile);
                 armio.ExpandArmTemplate(armTemplate);
-                armio.SaveExpandedTemplate(armTemplate, commandLineOptions.OutputFile);
+                armio.SaveExpandedTemplate(armTemplate, options.OutputFile);
             }
             catch (ExpandArmException)
             {

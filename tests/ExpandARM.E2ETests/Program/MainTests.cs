@@ -22,7 +22,9 @@ namespace ExpandARM.E2ETests
 
             // Assert
             var inputFileJObject = JObject.Parse(File.ReadAllText(inputFileName));
+
             var outputFileJObject = JObject.Parse(File.ReadAllText(outputFileName));
+
             inputFileJObject.Should().BeEquivalentTo(outputFileJObject);
         }
 
