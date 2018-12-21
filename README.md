@@ -21,8 +21,14 @@ Generate expanded ARM templates from templates with template links from local fi
 	The templates are treated as json. 
 	They are considered valid as long as the json is valid.
 
-# Usage
-	
-	ExpandARM.exe -i "webapp-with-trafficmanager-deployment.json"
+# Usages
+- minimal:
+``` console
+  ExpandARM.exe -i "complex-template.json"
+```	
+- full:
+``` console
+  ExpandARM.exe -i "complex-template.json" -o "expanded-complex-template.json" -v
+```	
 
 ### build [![Build Status](https://borisjuraga.visualstudio.com/ExpandARM/_apis/build/status/bjuraga.ExpandARM)](https://borisjuraga.visualstudio.com/ExpandARM/_build/latest?definitionId=11)
