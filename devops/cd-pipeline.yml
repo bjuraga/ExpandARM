@@ -65,7 +65,7 @@ jobs:
   
   - task: marcelo-formentao.github-tools.github-release-publish-task.GitHubReleasePublish@0
     displayName: 'Publish Artifacts to GitHub'
-    enabled: false
+    enabled: true
     inputs:
       githubEndpoint: 'GitHub_Conn'  
       githubRepository: bjuraga/ExpandARM  
