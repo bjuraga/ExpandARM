@@ -33,6 +33,7 @@ jobs:
       restoreSolution: '$(Parameters.solution)'
   
   - task: VSBuild@1
+    enabled: false
     displayName: 'Build solution **\*.sln'
     inputs:
       solution: '$(Parameters.solution)'  
@@ -50,6 +51,7 @@ jobs:
       configuration: '$(BuildConfiguration)'
 
   - task: CopyFiles@2
+    enabled: false
     displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
     inputs:
       SourceFolder: src/  
@@ -58,11 +60,11 @@ jobs:
       
   - task: ArchiveFiles@2
     inputs:
-      rootFolderOrFile: '$(build.artifactstagingdirectory)' 
+      rootFolderOrFile: 'src\ExpandARM\bin\Release\' 
       #includeRootFolder: true
       archiveType: 'zip' # Options: zip, 7z, tar, wim
       #tarCompression: 'gz' # Optional. Options: gz, bz2, xz, none
-      archiveFile: '$(build.artifactstagingdirectory)/$(Build.BuildId).zip' 
+      archiveFile: '$(build.artifactstagingdirectory)/$(GitVersion.NuGetVersion).zip' 
       replaceExistingArchive: true 
   
   - task: PublishBuildArtifacts@1
@@ -72,6 +74,7 @@ jobs:
   
   - task: marcelo-formentao.github-tools.github-release-publish-task.GitHubReleasePublish@0
     displayName: 'Publish Artifacts to GitHub'
+    enabled: false
     inputs:
       githubEndpoint: 'GitHub_Conn'  
       githubRepository: bjuraga/ExpandARM  
