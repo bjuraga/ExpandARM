@@ -31,4 +31,4 @@ Generate expanded ARM templates from templates with template links from local fi
   ExpandARM.exe -i "complex-template.json" -o "expanded-complex-template.json" -v
 ```	
 
-### build [![Build Status](https://borisjuraga.visualstudio.com/ExpandARM/_apis/build/status/bjuraga.ExpandARM)](https://borisjuraga.visualstudio.com/ExpandARM/_build/latest?definitionId=11)
+### build [![Build Status](https://borisjuraga.visualstudio.com/ExpandARM/_apis/build/status/ExpandARM-CI?branchName=master)](https://borisjuraga.visualstudio.com/ExpandARM/_build/latest?definitionId=12?branchName=master)
