@@ -53,7 +53,7 @@ jobs:
   - task: ArchiveFiles@2
     inputs:
       rootFolderOrFile: 'src/ExpandARM/bin/Release' 
-      #includeRootFolder: true
+      includeRootFolder: false
       archiveType: 'zip'
       archiveFile: '$(build.artifactstagingdirectory)/$(GitVersion.NuGetVersion).zip' 
       replaceExistingArchive: true 
