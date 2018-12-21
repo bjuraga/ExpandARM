@@ -32,3 +32,4 @@ Generate expanded ARM templates from templates with template links from local fi
 ```	
 
 ### build [![Build Status](https://borisjuraga.visualstudio.com/ExpandARM/_apis/build/status/ExpandARM-CI?branchName=master)](https://borisjuraga.visualstudio.com/ExpandARM/_build/latest?definitionId=12?branchName=master)
+

@@ -1,4 +1,11 @@
 name: bjuraga.ExpandARM.CI
+trigger:
+  branches:
+    include:
+    - master
+  paths:
+    exclude:
+    - README.md
 resources:
 - repo: self
   clean: true
