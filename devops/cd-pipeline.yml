@@ -33,7 +33,6 @@ jobs:
       restoreSolution: '$(Parameters.solution)'
   
   - task: VSBuild@1
-    enabled: false
     displayName: 'Build solution **\*.sln'
     inputs:
       solution: '$(Parameters.solution)'  
@@ -41,6 +40,7 @@ jobs:
       configuration: '$(BuildConfiguration)'  
   
   - task: VSTest@2
+    enabled: false
     displayName: 'VsTest - testAssemblies'
     inputs:
       testAssemblyVer2: |
@@ -49,21 +49,12 @@ jobs:
       codeCoverageEnabled: true  
       platform: '$(BuildPlatform)'  
       configuration: '$(BuildConfiguration)'
-
-  - task: CopyFiles@2
-    enabled: false
-    displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
-    inputs:
-      SourceFolder: src/  
-      Contents: '**/bin/$(BuildConfiguration)/**'  
-      TargetFolder: '$(build.artifactstagingdirectory)'
       
   - task: ArchiveFiles@2
     inputs:
-      rootFolderOrFile: 'src\ExpandARM\bin\Release\' 
+      rootFolderOrFile: 'src/ExpandARM/bin/Release' 
       #includeRootFolder: true
-      archiveType: 'zip' # Options: zip, 7z, tar, wim
-      #tarCompression: 'gz' # Optional. Options: gz, bz2, xz, none
+      archiveType: 'zip'
       archiveFile: '$(build.artifactstagingdirectory)/$(GitVersion.NuGetVersion).zip' 
       replaceExistingArchive: true 
   
