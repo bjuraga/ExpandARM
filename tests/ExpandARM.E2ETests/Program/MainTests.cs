@@ -9,6 +9,14 @@ namespace ExpandARM.E2ETests
     [TestClass]
     public class MainTests
     {
+        private static string PublishedExeFilePath;
+
+        [ClassInitialize]
+        public static void BeforeAll(TestContext testContext)
+        {
+            PublishedExeFilePath = PublishAppAsExe();
+        }
+
         [TestMethod]
         public void Main_WithMinimalTemplateWithoutLinks_Succeeds()
         {
@@ -18,7 +26,7 @@ namespace ExpandARM.E2ETests
             var argumentsToPass = $"-i {inputFileName}";
 
             // Act
-            Process.Start("ExpandARM.exe", argumentsToPass).WaitForExit();
+            Process.Start(PublishedExeFilePath, argumentsToPass).WaitForExit();
 
             // Assert
             var inputFileJObject = JObject.Parse(File.ReadAllText(inputFileName));
@@ -37,12 +45,33 @@ namespace ExpandARM.E2ETests
             var argumentsToPass = $"-i {inputFileName} -o {outputFileName}";
 
             // Act
-            Process.Start("ExpandARM.exe", argumentsToPass).WaitForExit();
+            Process.Start(PublishedExeFilePath, argumentsToPass).WaitForExit();
 
             // Assert
             var inputFileJObject = JObject.Parse(File.ReadAllText(inputFileName));
             var outputFileJObject = JObject.Parse(File.ReadAllText(outputFileName));
             inputFileJObject.Should().BeEquivalentTo(outputFileJObject);
+        }
+
+        private static string PublishAppAsExe()
+        {
+            var srcDir = @"..\..\..\..\..\src\ExpandARM";
+
+            var publishDir = Path.Combine(srcDir, @"bin\publish");
+            if (Directory.Exists(publishDir))
+            {
+                Directory.Delete(publishDir, true);
+            }
+
+            var argumentsToPass = $@"publish ExpandARM.csproj -c Release -r win-x64 -o bin\publish --self-contained";
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = "dotnet",
+                Arguments = argumentsToPass,
+                WorkingDirectory = srcDir
+            }).WaitForExit();
+
+            return Directory.GetFiles($@"{srcDir}\bin\publish\", "ExpandARM.exe", SearchOption.AllDirectories)[0];
         }
     }
 }
