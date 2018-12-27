@@ -3,6 +3,7 @@ trigger:
   branches:
     include:
     - master
+    - feature
   paths:
     exclude:
     - README.md
@@ -28,22 +29,30 @@ jobs:
     inputs:
       updateAssemblyInfo: true
   
-  - task: NuGetToolInstaller@0
-    displayName: 'Use NuGet 4.4.1'
+  - task: DotNetCoreCLI@2
     inputs:
-      versionSpec: 4.4.1
+      command: restore
+      projects: '**/*.csproj'
+      feedsToUse: config
+      #nugetConfigPath: NuGet.config    # Relative to root of the repository
+      #externalFeedCredentials: <Name of the NuGet service connection>
   
-  - task: NuGetCommand@2
-    displayName: 'NuGet restore'
-    inputs:
-      restoreSolution: '$(Parameters.solution)'
+  #- task: NuGetCommand@2
+  #  displayName: 'NuGet restore'
+  #  inputs:
+  #    restoreSolution: '$(Parameters.solution)'
   
-  - task: VSBuild@1
-    displayName: 'Build solution **\*.sln'
+  - task: DotNetCoreCLI@2
     inputs:
-      solution: '$(Parameters.solution)'  
-      platform: '$(BuildPlatform)'  
-      configuration: '$(BuildConfiguration)'  
+      command: build
+      projects: '**/*.csproj'
+
+  #- task: VSBuild@1
+  #  displayName: 'Build solution **\*.sln'
+  #  inputs:
+  #    solution: '$(Parameters.solution)'  
+  #    platform: '$(BuildPlatform)'  
+  #    configuration: '$(BuildConfiguration)'  
   
   - task: VSTest@2
     displayName: 'VsTest - testAssemblies'
