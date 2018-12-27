@@ -30,26 +30,23 @@ jobs:
       updateAssemblyInfo: true
   
   - task: DotNetCoreCLI@2
+    displayName: 'dotnet restore'
     inputs:
       command: restore
       projects: '$(Parameters.solution)'
-
-  #- task: NuGetCommand@2
-  #  displayName: 'NuGet restore'
-  #  inputs:
-  #    restoreSolution: '$(Parameters.solution)'
   
   - task: DotNetCoreCLI@2
+    displayName: 'dotnet build'
     inputs:
       command: build
       projects: '$(Parameters.solution)'
 
-  #- task: VSBuild@1
-  #  displayName: 'Build solution **\*.sln'
-  #  inputs:
-  #    solution: '$(Parameters.solution)'  
-  #    platform: '$(BuildPlatform)'  
-  #    configuration: '$(BuildConfiguration)'  
+  - task: DotNetCoreCLI@2
+    displayName: 'dotnet test'
+    inputs:
+      command: test
+      projects: '**/*Tests/*.csproj'
+      arguments: '--configuration $(BuildConfiguration) --collect "Code coverage"'
   
   - task: VSTest@2
     displayName: 'VsTest - testAssemblies'
