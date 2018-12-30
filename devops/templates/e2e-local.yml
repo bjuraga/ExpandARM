@@ -8,7 +8,8 @@ steps:
   displayName: 'dotnet publish locally'
   inputs:
     command: custom
-    arguments: 'publish src/ExpandARM/ExpandARM.csproj -c Release -r win-x64 -o bin\publish --self-contained'
+    custom: 'publish'
+    arguments: ' ./src/ExpandARM/ExpandARM.csproj -c Release -r win-x64 -o bin\publish --self-contained'
    
 - task: DotNetCoreCLI@2
   displayName: 'dotnet e2e tests'
