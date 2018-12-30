@@ -1,0 +1,41 @@
+parameters:
+  Parameters.solution: 'ExpandARM.sln'
+  BuildPlatform: 'any cpu'
+  BuildConfiguration: 'release'
+
+steps:
+- task: gittools.gitversion.gitversion-task.GitVersion@3
+  displayName: GitVersion
+  inputs:
+    updateAssemblyInfo: true
+
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet restore'
+  inputs:
+    command: restore
+    projects: '$(Parameters.solution)'
+
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet build'
+  inputs:
+    command: build
+    projects: '$(Parameters.solution)'
+
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet unit test'
+  inputs:
+    command: test
+    projects: '**/*UnitTests/*.csproj'
+    arguments: '--configuration $(BuildConfiguration) --collect "Code coverage"'
+
+- task: VSTest@2
+  displayName: 'VsTest - testAssemblies'
+  enabled: false
+  inputs:
+    testAssemblyVer2: |
+     **\$(BuildConfiguration)\*test*.dll
+     !**\obj\**  
+    codeCoverageEnabled: true  
+    platform: '$(BuildPlatform)'  
+    configuration: '$(BuildConfiguration)'
+      

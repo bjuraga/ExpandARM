@@ -11,11 +11,11 @@ namespace ExpandARM.E2ETests
     {
         private static string PublishedExeFilePath;
 
-        [ClassInitialize]
-        public static void BeforeAll(TestContext testContext)
-        {
-            PublishedExeFilePath = PublishAppAsExe();
-        }
+        //[ClassInitialize]
+        //public static void BeforeAll(TestContext testContext)
+        //{
+        //    PublishedExeFilePath = PublishAppAsExe();
+        //}
 
         [TestMethod]
         public void Main_WithMinimalTemplateWithoutLinks_Succeeds()
