@@ -4,20 +4,14 @@ parameters:
   BuildConfiguration: 'release'
 
 steps:
-- task: gittools.gitversion.gitversion-task.GitVersion@3
-  displayName: GitVersion
-  inputs:
-    updateAssemblyInfo: true
-
-- task: DotNetCoreCLI@2
-  displayName: 'dotnet restore'
-  inputs:
-    command: publish
-    projects: 'src/ExpandARM/ExpandARM.csproj'
-    arguments: '-c Release -r win-x64 -o bin\publish --self-contained'
-
 - task: DotNetCoreCLI@2
   displayName: 'dotnet publish locally'
+  inputs:
+    command: custom
+    arguments: 'publish src/ExpandARM/ExpandARM.csproj -c Release -r win-x64 -o bin\publish --self-contained'
+   
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet e2e tests'
   inputs:
     command: test
     projects: '**/*E2ETests/*.csproj'
