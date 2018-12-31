@@ -73,7 +73,7 @@ namespace ExpandARM.E2ETests
             //}).WaitForExit();
 
             Console.WriteLine("tests running in: " + Directory.GetCurrentDirectory());
-            var sut = Directory.GetFiles(@".\..\..\..\..\..\publish", "ExpandARM.exe", SearchOption.AllDirectories);
+            var sut = Directory.GetFiles(@".\..\..\..\..\..\e2e", "ExpandARM.exe", SearchOption.AllDirectories);
 
             if (sut.Length == 0)
             {

@@ -11,7 +11,7 @@ steps:
     custom: 'publish'
     publishWebProjects: false
     zipAfterPublish: false
-    arguments: ' ./src/ExpandARM/ExpandARM.csproj -c Release -r win-x64 -o e2e --self-contained'
+    arguments: ' ./src/ExpandARM/ExpandARM.csproj -c Release -r win-x64 -o ..\..\e2e --self-contained'
    
 - task: DotNetCoreCLI@2
   displayName: 'dotnet e2e tests'
