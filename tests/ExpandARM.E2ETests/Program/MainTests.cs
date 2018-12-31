@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json.Linq;
+using System;
 using System.Diagnostics;
 using System.IO;
 
@@ -55,23 +56,25 @@ namespace ExpandARM.E2ETests
 
         private static string PublishAppAsExe()
         {
-            var srcDir = @"..\..\..\..\..\src\ExpandARM";
+            //var srcDir = @"..\..\..\..\..\src\ExpandARM";
 
-            var publishDir = Path.Combine(srcDir, @"bin\publish");
-            if (Directory.Exists(publishDir))
-            {
-                Directory.Delete(publishDir, true);
-            }
+            //var publishDir = Path.Combine(srcDir, @"bin\publish");
+            //if (Directory.Exists(publishDir))
+            //{
+            //    Directory.Delete(publishDir, true);
+            //}
 
-            var argumentsToPass = $@"publish ExpandARM.csproj -c Release -r win-x64 -o bin\publish --self-contained";
-            Process.Start(new ProcessStartInfo
-            {
-                FileName = "dotnet",
-                Arguments = argumentsToPass,
-                WorkingDirectory = srcDir
-            }).WaitForExit();
+            //var argumentsToPass = $@"publish ExpandARM.csproj -c Release -r win-x64 -o bin\publish --self-contained";
+            //Process.Start(new ProcessStartInfo
+            //{
+            //    FileName = "dotnet",
+            //    Arguments = argumentsToPass,
+            //    WorkingDirectory = srcDir
+            //}).WaitForExit();
 
-            return Directory.GetFiles($@"{srcDir}\bin\publish\", "ExpandARM.exe", SearchOption.AllDirectories)[0];
+            Console.WriteLine("tests running in: " + Directory.GetCurrentDirectory());
+
+            return Directory.GetFiles("publish", "ExpandARM.exe", SearchOption.AllDirectories)[0];
         }
     }
 }
