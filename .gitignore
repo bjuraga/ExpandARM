@@ -260,3 +260,6 @@ paket-files/
 __pycache__/
 *.pyc
 /.axoCover/runs
+
+# local publish
+e2e
