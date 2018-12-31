@@ -73,8 +73,14 @@ namespace ExpandARM.E2ETests
             //}).WaitForExit();
 
             Console.WriteLine("tests running in: " + Directory.GetCurrentDirectory());
+            var sut = Directory.GetFiles(@".\..\..\..\..\..\publish", "ExpandARM.exe", SearchOption.AllDirectories);
 
-            return Directory.GetFiles("publish", "ExpandARM.exe", SearchOption.AllDirectories)[0];
+            if (sut.Length == 0)
+            {
+                Assert.Fail("ExpandARM.exe not found in publish dir");
+            }
+
+            return sut[0];
         }
     }
 }
