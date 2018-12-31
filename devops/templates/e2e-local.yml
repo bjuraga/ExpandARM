@@ -9,6 +9,7 @@ steps:
   inputs:
     command: custom
     custom: 'publish'
+    publishWebProjects: false
     arguments: ' ./src/ExpandARM/ExpandARM.csproj -c Release -r win-x64 -o bin\publish --self-contained'
    
 - task: DotNetCoreCLI@2
