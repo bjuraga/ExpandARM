@@ -9,10 +9,10 @@ steps:
   inputs:
     updateAssemblyInfo: true
 
-  - task: NuGetCommand@2
-    displayName: 'NuGet restore'
-    inputs:
-      restoreSolution: '$(Parameters.solution)'
+- task: NuGetCommand@2
+  displayName: 'NuGet restore'
+  inputs:
+    restoreSolution: '$(Parameters.solution)'
 
 - task: MSBuild@1
   inputs:
@@ -20,7 +20,6 @@ steps:
 
 - task: VSTest@2
   displayName: 'VsTest - testAssemblies'
-  enabled: false
   inputs:
     testAssemblyVer2: |
      **\$(BuildConfiguration)\*test*.dll
