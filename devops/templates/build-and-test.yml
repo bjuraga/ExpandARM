@@ -27,7 +27,7 @@ steps:
      **\$(BuildConfiguration)\*UnitTests.dll
      !**\obj\**
     codeCoverageEnabled: true
-	runSettingsFile: 'CodeCoverage.runsettings'
+    runSettingsFile: 'CodeCoverage.runsettings'
     searchFolder: '$(Build.SourcesDirectory)\tests'
     pathtoCustomTestAdapters: '$(Build.SourcesDirectory)\packages'
     platform: '$(BuildPlatform)'  
