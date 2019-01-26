@@ -27,4 +27,4 @@ steps:
     githubRepository: bjuraga/ExpandARM  
     githubReleaseDraft: false  
     githubReleasePrerelease: true  
-    githubReleaseAsset: '$(Build.SourcesDirectory)/src/ExpandARM/bin/$(BuildConfiguration)/ExpandARM.exe 
+    githubReleaseAsset: '$(Build.SourcesDirectory)/src/ExpandARM/bin/$(BuildConfiguration)/ExpandARM.exe'
