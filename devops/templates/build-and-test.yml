@@ -24,7 +24,8 @@ steps:
     testAssemblyVer2: |
      **\$(BuildConfiguration)\*UnitTests.dll
      !**\obj\**  
-    codeCoverageEnabled: true  
+    codeCoverageEnabled: true
+	pathtoCustomTestAdapters: '\packages'
     platform: '$(BuildPlatform)'  
     configuration: '$(BuildConfiguration)'
 
@@ -34,6 +35,7 @@ steps:
     testAssemblyVer2: |
      **\$(BuildConfiguration)\*E2ETests.dll
      !**\obj\**  
-    codeCoverageEnabled: true  
+    codeCoverageEnabled: true
+	pathtoCustomTestAdapters: '\packages'
     platform: '$(BuildPlatform)'  
     configuration: '$(BuildConfiguration)'
