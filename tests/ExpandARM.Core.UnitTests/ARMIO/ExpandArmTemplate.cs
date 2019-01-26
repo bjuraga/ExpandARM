@@ -21,7 +21,7 @@ namespace ExpandARM.Core.UnitTests
             sut = ArmIO.Create(fileSystem);
         }
 
-        [TestMethod]
+        [TestMethod, TestCategory("unit")]
         public void ExpandArmTemplate_Sets_IsExpanded_To_True()
         {
             // Arrange
@@ -35,7 +35,7 @@ namespace ExpandARM.Core.UnitTests
             arm.IsExpanded.Should().Be(true);
         }
 
-        [TestMethod]
+        [TestMethod, TestCategory("unit")]
         public void ExpandArmTemplate_Produces_Template_Objects()
         {
             // Arrange
@@ -49,7 +49,7 @@ namespace ExpandARM.Core.UnitTests
             arm.ExpandedContent.SelectTokens("$..template").Any().Should().Be(true);
         }
 
-        [TestMethod]
+        [TestMethod, TestCategory("unit")]
         public void ExpandArmTemplate_Template_Contains_FileContents_Of_LinkedTemplate()
         {
             // Arrange
@@ -64,7 +64,7 @@ namespace ExpandARM.Core.UnitTests
             arm.ExpandedContent.SelectToken("$..template").ToString().Should().BeEquivalentTo(expectedTemplateContent.ToString());
         }
 
-        [TestMethod]
+        [TestMethod, TestCategory("unit")]
         public void ExpandArmTemplate_Supports_FilePaths_With_Forward_Slash()
         {
             // Arrange
@@ -79,7 +79,7 @@ namespace ExpandARM.Core.UnitTests
             arm.ExpandedContent.SelectToken("$..template").ToString().Should().BeEquivalentTo(expectedTemplateContent.ToString());
         }
 
-        [TestMethod]
+        [TestMethod, TestCategory("unit")]
         public void ExpandArmTemplate_Template_Contains_FileContents_Of_LinkedTemplateWithRelativePath()
         {
             // Arrange
@@ -94,7 +94,7 @@ namespace ExpandARM.Core.UnitTests
             arm.ExpandedContent.SelectToken("$..template").ToString().Should().BeEquivalentTo(expectedTemplateContent.ToString());
         }
 
-        [TestMethod]
+        [TestMethod, TestCategory("unit")]
         public void ExpandArmTemplate_ContainingNestedTemplate_ContainsFileContents_Of_AllNestedTemplates()
         {
             // Arrange
@@ -109,7 +109,7 @@ namespace ExpandARM.Core.UnitTests
             arm.ExpandedContent.Should().BeEquivalentTo(expectedTemplate.OriginalContent);
         }
 
-        [TestMethod]
+        [TestMethod, TestCategory("unit")]
         public void ExpandArmTemplate_ReferencingSelf_Throws_SelfReferenceException()
         {
             // Arrange
@@ -123,7 +123,7 @@ namespace ExpandARM.Core.UnitTests
             act.Should().Throw<SelfReferenceException>();
         }
 
-        [TestMethod]
+        [TestMethod, TestCategory("unit")]
         public void ExpandArmTemplate_ReferencingParent_Throws_ReferenceLoopException()
         {
             // Arrange
@@ -137,7 +137,7 @@ namespace ExpandARM.Core.UnitTests
             act.Should().Throw<ReferenceLoopException>();
         }
 
-        [TestMethod]
+        [TestMethod, TestCategory("unit")]
         public void ExpandArmTemplate_WithParametersLink_Returns_ExpectedArmTemplate()
         {
             // Arrange
