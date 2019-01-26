@@ -9,24 +9,14 @@ steps:
   inputs:
     updateAssemblyInfo: true
 
-- task: DotNetCoreCLI@2
-  displayName: 'dotnet restore'
-  inputs:
-    command: restore
-    projects: '$(Parameters.solution)'
+  - task: NuGetCommand@2
+    displayName: 'NuGet restore'
+    inputs:
+      restoreSolution: '$(Parameters.solution)'
 
-- task: DotNetCoreCLI@2
-  displayName: 'dotnet build'
+- task: MSBuild@1
   inputs:
-    command: build
-    projects: '$(Parameters.solution)'
-
-- task: DotNetCoreCLI@2
-  displayName: 'dotnet unit test'
-  inputs:
-    command: test
-    projects: '**/*UnitTests/*.csproj'
-    arguments: '--configuration $(BuildConfiguration) --collect "Code coverage"'
+    solution: '$(Parameters.solution)'
 
 - task: VSTest@2
   displayName: 'VsTest - testAssemblies'
@@ -38,4 +28,3 @@ steps:
     codeCoverageEnabled: true  
     platform: '$(BuildPlatform)'  
     configuration: '$(BuildConfiguration)'
-      
