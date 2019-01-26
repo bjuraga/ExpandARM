@@ -27,6 +27,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "templates", "templates", "{765D3794-A9EF-4E0F-848C-096794FE1258}"
 	ProjectSection(SolutionItems) = preProject
 		devops\templates\build-and-test.yml = devops\templates\build-and-test.yml
+		deploy.yml = deploy.yml
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpandARM.E2ETests", "tests\ExpandARM.E2ETests\ExpandARM.E2ETests.csproj", "{79FEFB7A-B3C5-43D1-8BE5-E0466DFCAFB7}"

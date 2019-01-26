@@ -1,0 +1,30 @@
+parameters:
+  Parameters.solution: 'ExpandARM.sln'
+  BuildPlatform: 'Any Cpu'
+  BuildConfiguration: 'Release'
+
+steps:
+- task: ArchiveFiles@2
+  enabled: false
+  inputs:
+    rootFolderOrFile: 'src/ExpandARM/bin/Release' 
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '$(build.artifactstagingdirectory)/$(GitVersion.NuGetVersion).zip' 
+    replaceExistingArchive: true 
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifacts to VSTS'
+  enabled: false
+  inputs:
+    PathtoPublish: '$(build.artifactstagingdirectory)'
+
+- task: marcelo-formentao.github-tools.github-release-publish-task.GitHubReleasePublish@0
+  displayName: 'Publish Artifacts to GitHub'
+  enabled: true
+  inputs:
+    githubEndpoint: 'GitHub_Conn'  
+    githubRepository: bjuraga/ExpandARM  
+    githubReleaseDraft: false  
+    githubReleasePrerelease: true  
+    githubReleaseAsset: '$(Build.SourcesDirectory)/src/ExpandARM/bin/$(BuildConfiguration)/ExpandARM.exe 
