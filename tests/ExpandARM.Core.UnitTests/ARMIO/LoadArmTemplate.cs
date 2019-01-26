@@ -19,7 +19,7 @@ namespace ExpandARM.Core.UnitTests
             sut = ArmIO.Create(fileSystem);
         }
 
-        [TestMethod]
+        [TestMethod, TestCategory("unit")]
         public void LoadArmTemplate_MinimalFile_Returns_ExpectedArmTemplate()
         {
             // Arrange
@@ -33,7 +33,7 @@ namespace ExpandARM.Core.UnitTests
             arm.Should().BeEquivalentTo(expectedArmTemplate);
         }
 
-        [TestMethod]
+        [TestMethod, TestCategory("unit")]
         public void LoadArmTemplate_MinimalFile_Contains_resources_array()
         {
             // Arrange
@@ -47,7 +47,7 @@ namespace ExpandARM.Core.UnitTests
             resourcesType.Should().Be(typeof(JArray));
         }
 
-        [TestMethod]
+        [TestMethod, TestCategory("unit")]
         public void LoadArmTemplate_MinimalFileWithoutTemplateLink_Returns_ArmTemplate_With_NeedsExpansion_False()
         {
             // Arrange
@@ -60,7 +60,7 @@ namespace ExpandARM.Core.UnitTests
             arm.NeedsExpansion.Should().Be(false);
         }
 
-        [TestMethod]
+        [TestMethod, TestCategory("unit")]
         public void LoadArmTemplate_WithTemplateLink_Returns_ArmTemplate_With_NeedsExpansion_True()
         {
             // Arrange
@@ -73,7 +73,7 @@ namespace ExpandARM.Core.UnitTests
             arm.NeedsExpansion.Should().Be(true);
         }
 
-        [TestMethod]
+        [TestMethod, TestCategory("unit")]
         public void LoadArmTemplate_MinimalFileByRelativePath_Returns_ArmTemplate_With_Expected_Contents()
         {
             // Arrange

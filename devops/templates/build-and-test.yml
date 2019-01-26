@@ -1,0 +1,45 @@
+parameters:
+  Parameters.solution: 'ExpandARM.sln'
+  BuildPlatform: 'Any Cpu'
+  BuildConfiguration: 'Release'
+
+steps:
+- task: gittools.gitversion.gitversion-task.GitVersion@4
+  displayName: GitVersion
+  inputs:
+    updateAssemblyInfo: true
+
+- task: NuGetCommand@2
+  displayName: 'NuGet restore'
+  inputs:
+    restoreSolution: '$(Parameters.solution)'
+
+- task: MSBuild@1
+  inputs:
+    solution: '$(Parameters.solution)'
+    platform: '$(BuildPlatform)'
+    configuration: '$(BuildConfiguration)'
+
+- task: VSTest@2
+  displayName: 'VsTest - Unit Tests'
+  inputs:
+    testAssemblyVer2: |
+     **\$(BuildConfiguration)\*UnitTests.dll
+     !**\obj\**
+    codeCoverageEnabled: true
+    searchFolder: '$(Build.SourcesDirectory)\tests'
+    pathtoCustomTestAdapters: '$(Build.SourcesDirectory)\packages'
+    platform: '$(BuildPlatform)'  
+    configuration: '$(BuildConfiguration)'
+
+- task: VSTest@2
+  displayName: 'VsTest - E2E Tests'
+  inputs:
+    testAssemblyVer2: |
+     **\$(BuildConfiguration)\*E2ETests.dll
+     !**\obj\**
+    codeCoverageEnabled: false  
+    searchFolder: '$(Build.SourcesDirectory)\tests'
+    pathtoCustomTestAdapters: '$(Build.SourcesDirectory)\packages'
+    platform: '$(BuildPlatform)'  
+    configuration: '$(BuildConfiguration)'

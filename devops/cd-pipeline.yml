@@ -9,7 +9,7 @@ variables:
   BuildConfiguration: 'release'
 
 jobs:
-- job: CI
+- job: CD
   pool:
     name: Hosted VS2017
     demands: 
@@ -17,40 +17,10 @@ jobs:
     - visualstudio
     - vstest
   steps:
-  - task: gittools.gitversion.gitversion-task.GitVersion@3
-    displayName: GitVersion
-    inputs:
-      updateAssemblyInfo: true
-  
-  - task: NuGetToolInstaller@0
-    displayName: 'Use NuGet 4.4.1'
-    inputs:
-      versionSpec: 4.4.1
-  
-  - task: NuGetCommand@2
-    displayName: 'NuGet restore'
-    inputs:
-      restoreSolution: '$(Parameters.solution)'
-  
-  - task: VSBuild@1
-    displayName: 'Build solution **\*.sln'
-    inputs:
-      solution: '$(Parameters.solution)'  
-      platform: '$(BuildPlatform)'  
-      configuration: '$(BuildConfiguration)'  
-  
-  - task: VSTest@2
-    enabled: false
-    displayName: 'VsTest - testAssemblies'
-    inputs:
-      testAssemblyVer2: |
-       **\$(BuildConfiguration)\*test*.dll
-       !**\obj\**  
-      codeCoverageEnabled: true  
-      platform: '$(BuildPlatform)'  
-      configuration: '$(BuildConfiguration)'
+  - template: templates/build-and-test.yml  # Template reference
       
   - task: ArchiveFiles@2
+    enabled: false
     inputs:
       rootFolderOrFile: 'src/ExpandARM/bin/Release' 
       includeRootFolder: false
@@ -60,6 +30,7 @@ jobs:
   
   - task: PublishBuildArtifacts@1
     displayName: 'Publish Artifacts to VSTS'
+    enabled: false
     inputs:
       PathtoPublish: '$(build.artifactstagingdirectory)'
   
@@ -71,5 +42,5 @@ jobs:
       githubRepository: bjuraga/ExpandARM  
       githubReleaseDraft: false  
       githubReleasePrerelease: true  
-      githubReleaseAsset: '$(build.artifactstagingdirectory)/**/*.zip'  
+      githubReleaseAsset: '$(Build.SourcesDirectory)/src/ExpandARM/bin/$(BuildConfiguration)/ExpandARM.exe 
   

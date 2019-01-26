@@ -3,6 +3,7 @@ trigger:
   branches:
     include:
     - master
+    - feature/*
   paths:
     exclude:
     - README.md
@@ -23,35 +24,5 @@ jobs:
     - visualstudio
     - vstest
   steps:
-  - task: gittools.gitversion.gitversion-task.GitVersion@3
-    displayName: GitVersion
-    inputs:
-      updateAssemblyInfo: true
-  
-  - task: NuGetToolInstaller@0
-    displayName: 'Use NuGet 4.4.1'
-    inputs:
-      versionSpec: 4.4.1
-  
-  - task: NuGetCommand@2
-    displayName: 'NuGet restore'
-    inputs:
-      restoreSolution: '$(Parameters.solution)'
-  
-  - task: VSBuild@1
-    displayName: 'Build solution **\*.sln'
-    inputs:
-      solution: '$(Parameters.solution)'  
-      platform: '$(BuildPlatform)'  
-      configuration: '$(BuildConfiguration)'  
-  
-  - task: VSTest@2
-    displayName: 'VsTest - testAssemblies'
-    inputs:
-      testAssemblyVer2: |
-       **\$(BuildConfiguration)\*test*.dll
-       !**\obj\**  
-      codeCoverageEnabled: true  
-      platform: '$(BuildPlatform)'  
-      configuration: '$(BuildConfiguration)'
-      
+  - template: templates/build-and-test.yml  # Template reference
+

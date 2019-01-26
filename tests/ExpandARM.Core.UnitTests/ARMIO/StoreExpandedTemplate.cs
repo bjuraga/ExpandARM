@@ -18,7 +18,7 @@ namespace ExpandARM.Core.UnitTests
             sut = ArmIO.Create(fileSystem);
         }
 
-        [TestMethod]
+        [TestMethod, TestCategory("unit")]
         public void SaveExpandedTemplate_Should_Be_As_Expected_Template()
         {
             // Arrange
@@ -35,7 +35,7 @@ namespace ExpandARM.Core.UnitTests
             contentInExpandedFile.Should().BeEquivalentTo(expectedContent);
         }
 
-        [TestMethod]
+        [TestMethod, TestCategory("unit")]
         public void SaveExpandedTemplate_ShouldHaveCorrectExpandedFilename()
         {
             // Arrange
@@ -50,7 +50,7 @@ namespace ExpandARM.Core.UnitTests
             storedFileName.Should().EndWith("expanded.json");
         }
 
-        [TestMethod]
+        [TestMethod, TestCategory("unit")]
         public void SaveExpandedTemplate_IfOutputFilenameProived_ItIsUsed()
         {
             // Arrange
