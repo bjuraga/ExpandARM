@@ -23,9 +23,10 @@ steps:
   inputs:
     testAssemblyVer2: |
      **\$(BuildConfiguration)\*UnitTests.dll
-     !**\obj\**  
-    codeCoverageEnabled: true  
-    pathtoCustomTestAdapters: '\packages'
+     !**\obj\**
+    codeCoverageEnabled: true
+    searchFolder: '$(Build.SourcesDirectory)\tests'
+    pathtoCustomTestAdapters: '$(Build.SourcesDirectory)\packages'
     platform: '$(BuildPlatform)'  
     configuration: '$(BuildConfiguration)'
 
@@ -34,8 +35,9 @@ steps:
   inputs:
     testAssemblyVer2: |
      **\$(BuildConfiguration)\*E2ETests.dll
-     !**\obj\**  
+     !**\obj\**
     codeCoverageEnabled: true  
-    pathtoCustomTestAdapters: '\packages'
+    searchFolder: '$(Build.SourcesDirectory)\tests'
+    pathtoCustomTestAdapters: '$(Build.SourcesDirectory)\packages'
     platform: '$(BuildPlatform)'  
     configuration: '$(BuildConfiguration)'
