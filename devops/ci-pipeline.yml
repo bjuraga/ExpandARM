@@ -24,6 +24,5 @@ jobs:
     - visualstudio
     - vstest
   steps:
-  - template: templates/build-and-unit-test.yml  # Template reference
-  - template: templates/e2e-local.yml  # Template reference
+  - template: templates/build-and-test.yml  # Template reference
 

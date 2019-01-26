@@ -1,7 +1,7 @@
 parameters:
   Parameters.solution: 'ExpandARM.sln'
-  BuildPlatform: 'any cpu'
-  BuildConfiguration: 'release'
+  BuildPlatform: 'Any Cpu'
+  BuildConfiguration: 'Release'
 
 steps:
 - task: gittools.gitversion.gitversion-task.GitVersion@4
@@ -19,10 +19,20 @@ steps:
     solution: '$(Parameters.solution)'
 
 - task: VSTest@2
-  displayName: 'VsTest - testAssemblies'
+  displayName: 'VsTest - Unit Tests'
   inputs:
     testAssemblyVer2: |
-     **\$(BuildConfiguration)\*test*.dll
+     **\$(BuildConfiguration)\*UnitTests.dll
+     !**\obj\**  
+    codeCoverageEnabled: true  
+    platform: '$(BuildPlatform)'  
+    configuration: '$(BuildConfiguration)'
+
+- task: VSTest@2
+  displayName: 'VsTest - E2E Tests'
+  inputs:
+    testAssemblyVer2: |
+     **\$(BuildConfiguration)\*E2ETests.dll
      !**\obj\**  
     codeCoverageEnabled: true  
     platform: '$(BuildPlatform)'  
