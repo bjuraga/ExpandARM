@@ -38,7 +38,7 @@ steps:
     testAssemblyVer2: |
      **\$(BuildConfiguration)\*E2ETests.dll
      !**\obj\**
-    codeCoverageEnabled: true  
+    codeCoverageEnabled: false  
     searchFolder: '$(Build.SourcesDirectory)\tests'
     pathtoCustomTestAdapters: '$(Build.SourcesDirectory)\packages'
     platform: '$(BuildPlatform)'  
